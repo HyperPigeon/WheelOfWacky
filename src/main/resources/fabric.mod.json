@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "wacky_wheel",
+  "version": "${version}",
+  "name": "Wheel Of Wacky",
+  "description": "",
+  "authors": [],
+  "contact": {
+    "repo": "https://github.com/HyperPigeon/WheelOfWacky"
+  },
+  "license": "MIT",
+  "icon": "assets/wacky_wheel/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "net.hyper_pigeon.wacky_wheel.client.WheelOfWackyClient"
+    ],
+    "main": [
+      "net.hyper_pigeon.wacky_wheel.WheelOfWacky"
+    ]
+  },
+  "mixins": [
+    "wacky_wheel.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "1.21-rc.1"
+  }
+}
