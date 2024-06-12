@@ -10,10 +10,13 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class WheelOfWacky implements ModInitializer {
 
     public static final String MOD_ID = "wacky_wheel";
+    public static final Logger LOG = LogManager.getLogger(MOD_ID);
 
     public static final Block WACKY_WHEEL_BLOCK = new WackyWheelBlock(Block.Settings.create().strength(1.5F, 1200.0F));
     public static final BlockEntityType<WackyWheelBlockEntity> WACKY_WHEEL_BLOCK_ENTITY = Registry.register(

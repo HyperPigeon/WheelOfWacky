@@ -1,6 +1,7 @@
 package net.hyper_pigeon.wacky_wheel.block.entity;
 
 import net.hyper_pigeon.wacky_wheel.WheelOfWacky;
+import net.hyper_pigeon.wacky_wheel.spell.SpellType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
@@ -9,6 +10,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class WackyWheelBlockEntity extends BlockEntity {
 
+    private final SpellType[] spells = new SpellType[8];
     private float speed = 0.0F;
     private float friction = 0.8F;
 
