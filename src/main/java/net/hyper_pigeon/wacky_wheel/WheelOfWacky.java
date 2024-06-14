@@ -4,7 +4,10 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.hyper_pigeon.wacky_wheel.block.WackyWheelBlock;
 import net.hyper_pigeon.wacky_wheel.block.entity.WackyWheelBlockEntity;
+import net.hyper_pigeon.wacky_wheel.register.WheelOfWackyCommands;
+import net.hyper_pigeon.wacky_wheel.register.WheelOfWackyData;
 import net.hyper_pigeon.wacky_wheel.register.WheelOfWackyItems;
+import net.hyper_pigeon.wacky_wheel.spell.SpellManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
@@ -28,6 +31,9 @@ public class WheelOfWacky implements ModInitializer {
     @Override
     public void onInitialize() {
         Registry.register(Registries.BLOCK, Identifier.of(MOD_ID, "wacky_wheel"), WACKY_WHEEL_BLOCK);
+        WheelOfWackyData.init();
         WheelOfWackyItems.init();
+        WheelOfWackyCommands.init();
+        SpellManager.init();
     }
 }

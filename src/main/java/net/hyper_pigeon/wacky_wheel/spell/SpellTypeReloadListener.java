@@ -22,7 +22,7 @@ public class SpellTypeReloadListener extends JsonDataLoader  implements Identifi
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public SpellTypeReloadListener() {
-        super(GSON, "wacky_wheel/spell_type");
+        super(GSON, "spell_type");
     }
 
     @Override

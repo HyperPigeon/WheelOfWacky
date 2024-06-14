@@ -21,8 +21,8 @@ public class WheelOfWackyClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         EntityModelLayerRegistry.registerModelLayer(PROPELLER_HAT_MODEL_LAYER, PropellerHatModel::getTexturedModelData);
-//        EntityModelLayerRegistry.registerModelLayer(WACKY_WHEEL_MODEL_LAYER, WackyWheelBlockEntityRenderer::getTexturedModelData);
-//        BlockEntityRendererRegistry.register(WACKY_WHEEL_BLOCK_ENTITY, WackyWheelBlockEntityRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(WACKY_WHEEL_MODEL_LAYER, WackyWheelBlockEntityRenderer::getTexturedModelData);
+        BlockEntityRendererRegistry.register(WACKY_WHEEL_BLOCK_ENTITY, WackyWheelBlockEntityRenderer::new);
         ArmorRenderer.register(new PropellerHatArmorRenderer(), WheelOfWackyItems.PROPELLER_HAT);
     }
 }

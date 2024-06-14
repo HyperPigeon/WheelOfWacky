@@ -1,6 +1,20 @@
 {
   "variants": {
-    "": { "model": "wacky_wheel:block/wacky_wheel" }
+    "facing=east": {
+      "model": "minecraft:block/observer",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "minecraft:block/observer"
+    },
+    "facing=south": {
+      "model": "minecraft:block/observer",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "minecraft:block/observer",
+      "y": 270
+    }
   }
 }
 
