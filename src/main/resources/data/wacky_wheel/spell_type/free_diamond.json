@@ -4,5 +4,6 @@
   "flavorText": "Enjoy your free diamond :)",
   "itemID": "minecraft:diamond",
   "castingTime": 60,
-  "onCastFunction": "give_diamond"
+  "onCastFunction": "give_diamond",
+  "titleColor": "red"
 }

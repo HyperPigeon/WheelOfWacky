@@ -2,6 +2,7 @@ package net.hyper_pigeon.wacky_wheel.spell;
 
 import com.mojang.brigadier.ParseResults;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.hyper_pigeon.wacky_wheel.WheelOfWacky;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 
@@ -15,12 +16,14 @@ public class SpellManager {
     public static void addSpell(SpellType spellType, ServerPlayerEntity serverPlayerEntity) {
         inProgressSpells.add(new Spell(spellType,serverPlayerEntity));
         if(spellType.flavorText().isPresent()) {
-            String parsedCommand = String.format("execute as %s run title @s subtitle {\"text\":\"%s\",\"color\":\"gray\",\"italic\":true}", serverPlayerEntity.getUuidAsString(), spellType.flavorText().get());
+            String flavorTextColor = spellType.flavorTextColor().isPresent() ? spellType.flavorTextColor().get().getHexCode() : "gray";
+            String parsedCommand = String.format("execute as %s run title @s subtitle {\"text\":\"%s\",\"color\":\"%s\",\"italic\":true}", serverPlayerEntity.getUuidAsString(), spellType.flavorText().get(), flavorTextColor);
             ServerCommandSource commandSource = serverPlayerEntity.getServer().getCommandSource().withSilent().withMaxLevel(2);
             ParseResults<ServerCommandSource> parseResults = commandSource.getDispatcher().parse(parsedCommand, commandSource);
             serverPlayerEntity.getServer().getCommandManager().execute(parseResults, parsedCommand);
         }
-        String parsedCommand = String.format("execute as %s run title @s title {\"text\":\"%s\",\"bold\":true}", serverPlayerEntity.getUuidAsString(), spellType.name());
+        String titleColor = spellType.color().isPresent() ? spellType.color().get().getHexCode() : "gray";
+        String parsedCommand = String.format("execute as %s run title @s title {\"text\":\"%s\",\"bold\":true,\"color\":\"%s\"}", serverPlayerEntity.getUuidAsString(), spellType.name(), titleColor);
         ServerCommandSource commandSource = serverPlayerEntity.getServer().getCommandSource().withSilent().withMaxLevel(2);
         ParseResults<ServerCommandSource> parseResults = commandSource.getDispatcher().parse(parsedCommand, commandSource);
         serverPlayerEntity.getServer().getCommandManager().execute(parseResults, parsedCommand);
