@@ -31,7 +31,7 @@ public class WackyWheelBlockEntity extends BlockEntity {
     private final List<SpellType> wedgeSpells = new ArrayList<>();
     private ServerPlayerEntity spinningPlayer;
     private float speed = 0.0F;
-    private final float friction = 0.90F;
+    private final float friction = 0.985F;
     private float roll = 0.0F;
     private boolean spellFlag = false;
 
@@ -89,7 +89,7 @@ public class WackyWheelBlockEntity extends BlockEntity {
     }
 
     public boolean isSpinning(){
-        return speed > 0.15F;
+        return speed > 0.001F;
     }
 
     public void initWedgeSpells(){
@@ -144,7 +144,7 @@ public class WackyWheelBlockEntity extends BlockEntity {
     public void spin(ServerPlayerEntity serverPlayerEntity){
         if(!isSpinning() && !spellFlag) {
             setSpinningPlayer(serverPlayerEntity);
-            float startSpeed = random.nextFloat(30F) + 30F;
+            float startSpeed = random.nextFloat(60F) + 30F;
             setSpeed(startSpeed);
             spellFlag = true;
         }
