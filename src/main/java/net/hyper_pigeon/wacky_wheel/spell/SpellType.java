@@ -7,7 +7,7 @@ import net.minecraft.registry.Registries;
 
 import java.util.Optional;
 
-public record SpellType(String name, boolean showTitle, Optional<String> flavorText, Item item, int castingTime, String onCastFunction, Optional<Integer> duration, Optional<String> onEndFunction) {
+public record SpellType(String name, boolean showTitle, Optional<String> flavorText, Item item, int castingTime, String onCastFunction, Optional<Integer> duration, Optional<String> onEndFunction, Optional<String> color, Optional<String> flavorTextColor) {
     public static final Codec<SpellType> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("name").forGetter(SpellType::name),
             Codec.BOOL.fieldOf("showTitle").forGetter(SpellType::showTitle),
@@ -16,7 +16,9 @@ public record SpellType(String name, boolean showTitle, Optional<String> flavorT
             Codec.INT.fieldOf("castingTime").forGetter(SpellType::castingTime),
             Codec.STRING.fieldOf("onCastFunction").forGetter(SpellType::onCastFunction),
             Codec.INT.optionalFieldOf("duration").forGetter(SpellType::duration),
-            Codec.STRING.optionalFieldOf("onEndFunction").forGetter(SpellType::onEndFunction)
+            Codec.STRING.optionalFieldOf("onEndFunction").forGetter(SpellType::onEndFunction),
+            Codec.STRING.optionalFieldOf("titleColor").forGetter(SpellType::color),
+            Codec.STRING.optionalFieldOf("flavorTextColor").forGetter(SpellType::flavorTextColor)
     ).apply(instance, SpellType::new));
 
 }
