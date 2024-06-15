@@ -17,6 +17,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,16 +28,11 @@ import java.util.Random;
 public class WackyWheelBlockEntity extends BlockEntity {
 
     private static final Random random = new Random();
-
     private final List<SpellType> wedgeSpells = new ArrayList<>();
-
     private ServerPlayerEntity spinningPlayer;
-
     private float speed = 0.0F;
-    private float friction = 0.975F;
-
+    private final float friction = 0.90F;
     private float roll = 0.0F;
-
     private boolean spellFlag = false;
 
     public WackyWheelBlockEntity(BlockPos pos, BlockState state) {
@@ -48,11 +44,16 @@ public class WackyWheelBlockEntity extends BlockEntity {
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
         getWedgeSpells().clear();
-        nbt.getList("wedgeSpells",10).forEach(nbtElement -> {
-            SpellType.CODEC.parse(NbtOps.INSTANCE, nbtElement)
-                    .resultOrPartial(string -> WheelOfWacky.LOG.error("Failed to parse wedge spells: '{}'", string))
-                    .ifPresent(wedgeSpells::add);
-        });
+        if(nbt.contains("wedgeSpells")) {
+            nbt.getList("wedgeSpells",10).forEach(nbtElement -> {
+                SpellType.CODEC.parse(NbtOps.INSTANCE, nbtElement)
+                        .resultOrPartial(string -> WheelOfWacky.LOG.error("Failed to parse wedge spells: '{}'", string))
+                        .ifPresent(wedgeSpells::add);
+            });
+        }
+        else {
+            initWedgeSpells();
+        }
         this.roll = nbt.getFloat("roll");
     }
 
@@ -80,12 +81,7 @@ public class WackyWheelBlockEntity extends BlockEntity {
     }
 
     public void setRoll(float roll){
-        if(roll <= 360F) {
-            this.roll = roll;
-        }
-        else {
-            this.roll = roll - 360F;
-        }
+        this.roll = MathHelper.wrapDegrees(roll);
     }
 
     public float getFriction(){
@@ -93,7 +89,7 @@ public class WackyWheelBlockEntity extends BlockEntity {
     }
 
     public boolean isSpinning(){
-        return speed > 0.5F;
+        return speed > 0.15F;
     }
 
     public void initWedgeSpells(){
@@ -128,25 +124,27 @@ public class WackyWheelBlockEntity extends BlockEntity {
     }
 
     public static void serverTick(World world, BlockPos blockPos, BlockState blockState, WackyWheelBlockEntity wackyWheelBlockEntity) {
-        if(wackyWheelBlockEntity.isSpinning() && wackyWheelBlockEntity.getSpinningPlayer() != null) {
-            wackyWheelBlockEntity.setRoll(wackyWheelBlockEntity.getRoll() + wackyWheelBlockEntity.getSpeed());
-            wackyWheelBlockEntity.setSpeed(wackyWheelBlockEntity.getSpeed()* wackyWheelBlockEntity.getFriction());
-            wackyWheelBlockEntity.markDirty();
-            wackyWheelBlockEntity.getSpinningPlayer().sendMessage(Text.literal("roll: " + wackyWheelBlockEntity.getRoll()), false);
-        }
-        else if(!wackyWheelBlockEntity.isSpinning() && wackyWheelBlockEntity.spellFlag) {
-            wackyWheelBlockEntity.setSpeed(0F);
-            wackyWheelBlockEntity.spellFlag = false;
-            int wedgeIndex = wackyWheelBlockEntity.getWedgeIndexFromRoll();
-            SpellManager.addSpell(wackyWheelBlockEntity.getWedgeSpells().get(wedgeIndex),wackyWheelBlockEntity.getSpinningPlayer());
-            wackyWheelBlockEntity.setSpinningPlayer(null);
+        if(wackyWheelBlockEntity.getSpinningPlayer() != null) {
+            if(wackyWheelBlockEntity.isSpinning()) {
+                wackyWheelBlockEntity.setRoll(wackyWheelBlockEntity.getRoll() + wackyWheelBlockEntity.getSpeed());
+                wackyWheelBlockEntity.setSpeed(wackyWheelBlockEntity.getSpeed()* wackyWheelBlockEntity.getFriction());
+                wackyWheelBlockEntity.markDirty();
+            }
+            else if(!wackyWheelBlockEntity.isSpinning() && wackyWheelBlockEntity.spellFlag) {
+                wackyWheelBlockEntity.setSpeed(0F);
+                wackyWheelBlockEntity.spellFlag = false;
+                int wedgeIndex = wackyWheelBlockEntity.getWedgeIndexFromRoll();
+                SpellManager.addSpell(wackyWheelBlockEntity.getWedgeSpells().get(wedgeIndex),wackyWheelBlockEntity.getSpinningPlayer());
+                wackyWheelBlockEntity.setSpinningPlayer(null);
+                wackyWheelBlockEntity.markDirty();
+            }
         }
     }
 
     public void spin(ServerPlayerEntity serverPlayerEntity){
         if(!isSpinning() && !spellFlag) {
             setSpinningPlayer(serverPlayerEntity);
-            float startSpeed = random.nextFloat(2.5F) + 5F;
+            float startSpeed = random.nextFloat(30F) + 30F;
             setSpeed(startSpeed);
             spellFlag = true;
         }

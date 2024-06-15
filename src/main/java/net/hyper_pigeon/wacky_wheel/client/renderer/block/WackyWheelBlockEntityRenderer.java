@@ -27,10 +27,8 @@ public class WackyWheelBlockEntityRenderer implements BlockEntityRenderer<WackyW
     public static final SpriteIdentifier WHEEL_TEXTURE = new SpriteIdentifier(
             SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, Identifier.of(WheelOfWacky.MOD_ID, "block/wacky_wheel"));
 
-//    private final ModelPart wacky_wheel;
     private final ModelPart wheel;
     private final ModelPart main_wheel;
-//    private final ModelPart frame;
     private final ModelPart eye;
     private final ModelPart arrow;
 
@@ -38,7 +36,6 @@ public class WackyWheelBlockEntityRenderer implements BlockEntityRenderer<WackyW
         ModelPart root = ctx.getLayerModelPart(WheelOfWackyClient.WACKY_WHEEL_MODEL_LAYER);
         this.wheel = root.getChild("wheel");
         this.main_wheel = wheel.getChild("main_wheel");
-//        this.frame = main_wheel.getChild("frame");
         this.eye = wheel.getChild("eye");
         this.arrow = wheel.getChild("arrow");
     }
@@ -51,8 +48,13 @@ public class WackyWheelBlockEntityRenderer implements BlockEntityRenderer<WackyW
         matrices.translate(0.5,-0.5,0.5);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(blockDirection.asRotation()));
 
-        System.out.println(entity.getRoll());
-        this.main_wheel.pitch = MathHelper.lerpAngleDegrees(0.10F, this.main_wheel.pitch, entity.getRoll());
+        if(entity.isSpinning()) {
+            this.main_wheel.pitch = MathHelper.lerpAngleDegrees(0.10F, this.main_wheel.pitch, entity.getRoll());
+        }
+        else {
+            this.main_wheel.pitch = entity.getRoll();
+        }
+
         this.wheel.render(matrices, vertexConsumer, lightAbove, overlay);
         matrices.pop();
     }
