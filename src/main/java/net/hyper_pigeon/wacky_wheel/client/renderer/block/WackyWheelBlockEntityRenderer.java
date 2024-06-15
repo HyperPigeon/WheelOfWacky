@@ -3,6 +3,7 @@ package net.hyper_pigeon.wacky_wheel.client.renderer.block;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.hyper_pigeon.wacky_wheel.WheelOfWacky;
+import net.hyper_pigeon.wacky_wheel.block.WackyWheelBlock;
 import net.hyper_pigeon.wacky_wheel.block.entity.WackyWheelBlockEntity;
 import net.hyper_pigeon.wacky_wheel.client.WheelOfWackyClient;
 import net.minecraft.block.BedBlock;
@@ -43,11 +44,12 @@ public class WackyWheelBlockEntityRenderer implements BlockEntityRenderer<WackyW
     public void render(WackyWheelBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         VertexConsumer vertexConsumer = WHEEL_TEXTURE.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
         int lightAbove = WorldRenderer.getLightmapCoordinates(entity.getWorld(), entity.getPos().up());
-        Direction blockDirection = (Direction)entity.getCachedState().get(BedBlock.FACING);
+        Direction blockDirection = (Direction)entity.getCachedState().get(WackyWheelBlock.FACING);
+        float degreeOffset = (blockDirection.equals(Direction.WEST) || blockDirection.equals(Direction.EAST)) ? -90F : 90F;
+
         matrices.push();
         matrices.translate(0.5,-0.5,0.5);
-        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(blockDirection.asRotation()));
-
+        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(degreeOffset  + blockDirection.asRotation()));
         if(entity.isSpinning()) {
             this.main_wheel.pitch = MathHelper.lerpAngleDegrees(0.10F, this.main_wheel.pitch, entity.getRoll());
         }
