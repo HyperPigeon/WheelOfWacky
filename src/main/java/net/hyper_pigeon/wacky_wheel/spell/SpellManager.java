@@ -22,7 +22,7 @@ public class SpellManager {
             ParseResults<ServerCommandSource> parseResults = commandSource.getDispatcher().parse(parsedCommand, commandSource);
             serverPlayerEntity.getServer().getCommandManager().execute(parseResults, parsedCommand);
         }
-        String titleColor = spellType.color().isPresent() ? spellType.color().get().getHexCode() : "gray";
+        String titleColor = spellType.titleColor().isPresent() ? spellType.titleColor().get().getHexCode() : "gray";
         String parsedCommand = String.format("execute as %s run title @s title {\"text\":\"%s\",\"bold\":true,\"color\":\"%s\"}", serverPlayerEntity.getUuidAsString(), spellType.name(), titleColor);
         ServerCommandSource commandSource = serverPlayerEntity.getServer().getCommandSource().withSilent().withMaxLevel(2);
         ParseResults<ServerCommandSource> parseResults = commandSource.getDispatcher().parse(parsedCommand, commandSource);

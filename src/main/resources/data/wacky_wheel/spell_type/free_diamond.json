@@ -1,9 +1,8 @@
 {
   "name": "Free Diamond!",
-  "showTitle": true,
+  "titleColor": "#ADD8E6",
   "flavorText": "Enjoy your free diamond :)",
   "itemID": "minecraft:diamond",
   "castingTime": 60,
-  "onCastFunction": "give_diamond",
-  "titleColor": "red"
+  "onCastFunction": "give_diamond"
 }
