@@ -161,4 +161,16 @@ public class WackyWheelBlockEntity extends BlockEntity {
     public int getWedgeIndexFromRoll(){
         return (int) Math.ceil(this.roll/360);
     }
+
+    public String getCurrentWedgeName(){
+        int index = getWedgeIndexFromRoll();
+        SpellType spellType = getWedgeSpells().get(index);
+        return spellType.name();
+    }
+
+    public SpellType getCurrentWedgeSpell(){
+        int index = getWedgeIndexFromRoll();
+        SpellType spellType = getWedgeSpells().get(index);
+        return spellType;
+    }
 }

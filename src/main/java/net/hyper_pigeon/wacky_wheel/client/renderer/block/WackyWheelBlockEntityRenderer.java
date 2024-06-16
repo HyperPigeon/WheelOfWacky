@@ -1,5 +1,6 @@
 package net.hyper_pigeon.wacky_wheel.client.renderer.block;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.hyper_pigeon.wacky_wheel.WheelOfWacky;
@@ -7,6 +8,8 @@ import net.hyper_pigeon.wacky_wheel.block.WackyWheelBlock;
 import net.hyper_pigeon.wacky_wheel.block.entity.WackyWheelBlockEntity;
 import net.hyper_pigeon.wacky_wheel.client.WheelOfWackyClient;
 import net.minecraft.block.BedBlock;
+import net.minecraft.block.entity.SignText;
+import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -17,7 +20,11 @@ import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.Text;
+import net.minecraft.text.TextColor;
+import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
@@ -33,23 +40,31 @@ public class WackyWheelBlockEntityRenderer implements BlockEntityRenderer<WackyW
     private final ModelPart eye;
     private final ModelPart arrow;
 
+    private final TextRenderer textRenderer;
+
     public WackyWheelBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
         ModelPart root = ctx.getLayerModelPart(WheelOfWackyClient.WACKY_WHEEL_MODEL_LAYER);
         this.wheel = root.getChild("wheel");
         this.main_wheel = wheel.getChild("main_wheel");
         this.eye = wheel.getChild("eye");
         this.arrow = wheel.getChild("arrow");
+        this.textRenderer = ctx.getTextRenderer();
     }
     @Override
     public void render(WackyWheelBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         VertexConsumer vertexConsumer = WHEEL_TEXTURE.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
         int lightAbove = WorldRenderer.getLightmapCoordinates(entity.getWorld(), entity.getPos().up());
+        Text text = Text.literal(entity.getCurrentWedgeName());
+        int textColor = entity.getCurrentWedgeSpell().titleColor().isPresent() ? entity.getCurrentWedgeSpell().titleColor().get().getRgb(): 553648127;
         Direction blockDirection = (Direction)entity.getCachedState().get(WackyWheelBlock.FACING);
         float degreeOffset = (blockDirection.equals(Direction.WEST) || blockDirection.equals(Direction.EAST)) ? -90F : 90F;
 
         matrices.push();
         matrices.translate(0.5,-0.5,0.5);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(degreeOffset  + blockDirection.asRotation()));
+
+        renderText(text, matrices, vertexConsumers, lightAbove, textColor);
+
         if(entity.isSpinning()) {
             this.main_wheel.pitch = MathHelper.lerpAngleDegrees(0.10F, this.main_wheel.pitch, entity.getRoll());
         }
@@ -58,6 +73,30 @@ public class WackyWheelBlockEntityRenderer implements BlockEntityRenderer<WackyW
         }
 
         this.wheel.render(matrices, vertexConsumer, lightAbove, overlay);
+        matrices.pop();
+    }
+
+    void renderText(Text text, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int color) {
+        matrices.push();
+        RenderSystem.disableCull();
+        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(270F));
+        matrices.scale(0.035F, -0.035F, 0.035F);
+
+        float x = (float)(-this.textRenderer.getWidth(text) / 2);
+
+        this.textRenderer.draw(
+                text,
+                x,
+                -85.0F,
+                Colors.RED,
+                false,
+                matrices.peek().getPositionMatrix(),
+                vertexConsumers,
+                TextRenderer.TextLayerType.POLYGON_OFFSET,
+               0,
+                light
+        );
+        RenderSystem.enableCull();
         matrices.pop();
     }
 
