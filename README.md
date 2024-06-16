@@ -79,13 +79,21 @@ To test our new command, enter the /wheel free_diamond command into chat and rec
 ### Spell JSON Keys
 
 `name`: The name of the spell.
-(Optional) `titleColor`: Color of the name text/title.
-(Optional) `flavorText`: Additional information that appears underneath the spell's name. 
-(Optional) `flavorTextColor`: Color of the flavor text subtitle. 
+
+`titleColor` (Optional) : Color of the name text/title.
+
+`flavorText` (Optional): Additional information that appears underneath the spell's name. 
+
+`flavorTextColor` (Optional): Color of the flavor text subtitle. 
+
 `itemID`: ID of the item used to represent the spell on the wacky wheel. 
+
 `castingTime`: Time in ticks that it takes to cast the spell.
+
 `onCastFunction`: Name of the .mcfunction file that executes to create the spell effect.
-(Optional) `duration`: Time in ticks that the spell lasts.
-(Optional) `onEndFunction`: Name of the .mcfunction file that executes when the spell ends. 
+
+`duration` (Optional): Time in ticks that the spell lasts.
+
+`onEndFunction` (Optional) : Name of the .mcfunction file that executes when the spell ends. 
 
 
