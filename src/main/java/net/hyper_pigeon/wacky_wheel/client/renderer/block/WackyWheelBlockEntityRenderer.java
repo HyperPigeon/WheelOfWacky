@@ -88,7 +88,7 @@ public class WackyWheelBlockEntityRenderer implements BlockEntityRenderer<WackyW
                 text,
                 x,
                 -85.0F,
-                Colors.RED,
+                color,
                 false,
                 matrices.peek().getPositionMatrix(),
                 vertexConsumers,

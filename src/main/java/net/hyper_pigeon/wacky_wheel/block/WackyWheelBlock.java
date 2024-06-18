@@ -126,4 +126,17 @@ public class WackyWheelBlock extends HorizontalFacingBlock implements BlockEntit
         return BlockRenderType.INVISIBLE;
     }
 
+    protected VoxelShape getCameraCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return VoxelShapes.empty();
+    }
+
+    protected float getAmbientOcclusionLightLevel(BlockState state, BlockView world, BlockPos pos) {
+        return 1.0F;
+    }
+
+    @Override
+    protected boolean isTransparent(BlockState state, BlockView world, BlockPos pos) {
+        return true;
+    }
+
 }
