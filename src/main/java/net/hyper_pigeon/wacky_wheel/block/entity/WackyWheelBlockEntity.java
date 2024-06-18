@@ -1,6 +1,7 @@
 package net.hyper_pigeon.wacky_wheel.block.entity;
 
 import net.hyper_pigeon.wacky_wheel.WheelOfWacky;
+import net.hyper_pigeon.wacky_wheel.block.WackyWheelBlock;
 import net.hyper_pigeon.wacky_wheel.spell.SpellManager;
 import net.hyper_pigeon.wacky_wheel.spell.SpellType;
 import net.hyper_pigeon.wacky_wheel.spell.SpellTypeRegistry;
@@ -13,11 +14,13 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -31,7 +34,7 @@ public class WackyWheelBlockEntity extends BlockEntity {
     private final List<SpellType> wedgeSpells = new ArrayList<>();
     private ServerPlayerEntity spinningPlayer;
     private float speed = 0.0F;
-    private final float friction = 0.985F;
+    private final float friction = 0.975F;
     private float roll = 0.0F;
     private boolean spellFlag = false;
 
@@ -55,6 +58,11 @@ public class WackyWheelBlockEntity extends BlockEntity {
             initWedgeSpells();
         }
         this.roll = nbt.getFloat("roll");
+        this.speed = nbt.getFloat("speed");
+        this.spellFlag = nbt.getBoolean("spellFlag");
+//
+//        if(!world.isClient() && nbt.contains("spinningPlayerUUID"))
+//            this.spinningPlayer = (ServerPlayerEntity) world.getPlayerByUuid(nbt.getUuid("spinningPlayerUUID"));
     }
 
     @Override
@@ -66,6 +74,13 @@ public class WackyWheelBlockEntity extends BlockEntity {
         });
         nbt.put("wedgeSpells",nbtList);
         nbt.putFloat("roll",roll);
+        nbt.putFloat("speed", speed);
+        nbt.putBoolean("spellFlag",spellFlag);
+//
+//        if(spinningPlayer != null) {
+//            nbt.putUuid("spinningPlayerUUID",spinningPlayer.getUuid());
+//        }
+
     }
 
     public float getSpeed(){
@@ -114,13 +129,40 @@ public class WackyWheelBlockEntity extends BlockEntity {
     }
 
     public void markDirty() {
-        world.updateListeners(pos, getCachedState(), getCachedState(), Block.NOTIFY_LISTENERS);
         super.markDirty();
+        world.updateListeners(pos, getCachedState(), getCachedState(), Block.NOTIFY_LISTENERS);
     }
 
 
     public static void clientTick(World world, BlockPos blockPos, BlockState blockState, WackyWheelBlockEntity wackyWheelBlockEntity) {
+        if(wackyWheelBlockEntity.isSpinning() && wackyWheelBlockEntity.spellFlag) {
+            Direction direction = blockState.get(WackyWheelBlock.FACING);
 
+            float maxDistance = Math.clamp(wackyWheelBlockEntity.getSpeed() > 5 ? wackyWheelBlockEntity.getSpeed()/3F :wackyWheelBlockEntity.getSpeed()/2F , 0.1F, 8F);
+            int particleNum = random.nextInt(11) + 1;
+
+            for(int i = 0; i <= particleNum; i++) {
+                double x = (double)blockPos.getX() + 0.55 - (double)((random.nextFloat() * 2 - 1) * maxDistance);
+                double y = (double)blockPos.getY() + 0.55 - (double)((random.nextFloat() * 2 - 1) * maxDistance);
+                double z = (double)blockPos.getZ() + 0.55 - (double)((random.nextFloat() * 2 - 1) * maxDistance);
+                double g = (double)(0.4F - (random.nextFloat() + random.nextFloat()) * 0.4F);
+
+//            Vec3d vec3d = new Vec3d(blockPos.getX() - x ,blockPos.getY() - y ,  blockPos.getZ() - z).normalize();
+//            double magnitude = 0.1F + 0.1F/Math.clamp(wackyWheelBlockEntity.getSpeed(), 1,30);
+
+                if (random.nextInt(5) == 0) {
+                    world.addParticle(
+                            random.nextInt(2) == 1 ?  ParticleTypes.END_ROD :ParticleTypes.ENCHANT,
+                            x + direction.getOffsetX()*g,
+                            y + direction.getOffsetY()*g,
+                            z + direction.getOffsetZ()*g,
+                            random.nextGaussian() * 0.005,
+                            random.nextGaussian() * 0.005,
+                            random.nextGaussian() * 0.005
+                    );
+                }
+            }
+        }
     }
 
     public static void serverTick(World world, BlockPos blockPos, BlockState blockState, WackyWheelBlockEntity wackyWheelBlockEntity) {
@@ -139,14 +181,21 @@ public class WackyWheelBlockEntity extends BlockEntity {
                 wackyWheelBlockEntity.markDirty();
             }
         }
+        else if(wackyWheelBlockEntity.isSpinning()) {
+            wackyWheelBlockEntity.setSpeed(0);
+            wackyWheelBlockEntity.spellFlag = false;
+            wackyWheelBlockEntity.markDirty();
+        }
+
     }
 
     public void spin(ServerPlayerEntity serverPlayerEntity){
         if(!isSpinning() && !spellFlag) {
             setSpinningPlayer(serverPlayerEntity);
-            float startSpeed = random.nextFloat(45F) + 30F;
+            float startSpeed = random.nextFloat(15F) + 20F;
             setSpeed(startSpeed);
             spellFlag = true;
+            markDirty();
         }
     }
 
@@ -173,4 +222,5 @@ public class WackyWheelBlockEntity extends BlockEntity {
         SpellType spellType = getWedgeSpells().get(index);
         return spellType;
     }
+
 }
