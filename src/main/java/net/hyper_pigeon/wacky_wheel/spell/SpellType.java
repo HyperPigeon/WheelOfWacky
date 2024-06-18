@@ -8,7 +8,16 @@ import net.minecraft.text.TextColor;
 
 import java.util.Optional;
 
-public record SpellType(String name, Optional<String> flavorText, Item item, int castingTime, String onCastFunction, Optional<Integer> duration, Optional<String> onEndFunction, Optional<TextColor> titleColor, Optional<TextColor> flavorTextColor) {
+public record SpellType(String name,
+                        Optional<String> flavorText,
+                        Item item, int castingTime,
+                        String onCastFunction,
+                        Optional<Integer> duration,
+                        Optional<String> onEndFunction,
+                        Optional<TextColor> titleColor,
+                        Optional<TextColor> flavorTextColor,
+                        Optional<Boolean> executeOnCastFunctionAtPlayer,
+                        Optional<Boolean> executeOnEndFunctionAtPlayer) {
     public static final Codec<SpellType> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("name").forGetter(SpellType::name),
             Codec.STRING.optionalFieldOf("flavorText").forGetter(SpellType::flavorText),
@@ -18,7 +27,9 @@ public record SpellType(String name, Optional<String> flavorText, Item item, int
             Codec.INT.optionalFieldOf("duration").forGetter(SpellType::duration),
             Codec.STRING.optionalFieldOf("onEndFunction").forGetter(SpellType::onEndFunction),
             TextColor.CODEC.optionalFieldOf("titleColor").forGetter(SpellType::titleColor),
-            TextColor.CODEC.optionalFieldOf("flavorTextColor").forGetter(SpellType::flavorTextColor)
+            TextColor.CODEC.optionalFieldOf("flavorTextColor").forGetter(SpellType::flavorTextColor),
+            Codec.BOOL.optionalFieldOf("executeOnCastFunctionAtPlayer").forGetter(SpellType::executeOnCastFunctionAtPlayer),
+            Codec.BOOL.optionalFieldOf("executeOnEndFunctionAtPlayer").forGetter(SpellType::executeOnEndFunctionAtPlayer)
     ).apply(instance, SpellType::new));
 
 }

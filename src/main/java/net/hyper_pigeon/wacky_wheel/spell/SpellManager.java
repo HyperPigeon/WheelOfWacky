@@ -30,7 +30,9 @@ public class SpellManager {
     }
 
     public static void castSpell(SpellType spellType, ServerPlayerEntity serverPlayerEntity){
-        String parsedCommand = "execute as " + serverPlayerEntity.getUuidAsString() + " run function " + "wacky_wheel:" + spellType.onCastFunction();
+        String executeModifier = spellType.executeOnCastFunctionAtPlayer().isPresent() && spellType.executeOnCastFunctionAtPlayer().get() ? "at" : "as";
+
+        String parsedCommand = "execute " + executeModifier  + " " + serverPlayerEntity.getUuidAsString() + " run function " + "wacky_wheel:" + spellType.onCastFunction();
         ServerCommandSource commandSource = serverPlayerEntity.getServer().getCommandSource().withSilent().withMaxLevel(2);
         ParseResults<ServerCommandSource> parseResults = commandSource.getDispatcher().parse(parsedCommand, commandSource);
         serverPlayerEntity.getServer().getCommandManager().execute(parseResults, parsedCommand);
@@ -38,7 +40,9 @@ public class SpellManager {
 
     public static void onSpellEnd(SpellType spellType, ServerPlayerEntity serverPlayerEntity){
         if(spellType.onEndFunction().isPresent()) {
-            String parsedCommand = "execute as " + serverPlayerEntity.getUuidAsString() + " run function " + "wacky_wheel:" + spellType.onEndFunction();
+            String executeModifier = spellType.executeOnEndFunctionAtPlayer().isPresent() && spellType.executeOnEndFunctionAtPlayer().get() ? "at" : "as";
+
+            String parsedCommand = "execute " + executeModifier  + " " + serverPlayerEntity.getUuidAsString() + " run function " + "wacky_wheel:" + spellType.onEndFunction();
             ServerCommandSource commandSource = serverPlayerEntity.getServer().getCommandSource();
             ParseResults<ServerCommandSource> parseResults = commandSource.getDispatcher().parse(parsedCommand, commandSource);
             serverPlayerEntity.getServer().getCommandManager().execute(parseResults, parsedCommand);
