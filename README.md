@@ -92,8 +92,12 @@ To test our new command, enter the /wheel free_diamond command into chat and rec
 
 `onCastFunction`: Name of the .mcfunction file that executes to create the spell effect.
 
+`executeOnCastFunctionAtPlayer` (Optional): Set to true to execute onCastFunction AT player instead of AS player. 
+
 `duration` (Optional): Time in ticks that the spell lasts.
 
 `onEndFunction` (Optional) : Name of the .mcfunction file that executes when the spell ends. 
+
+`executeOnEndFunctionAtPlayer` (Optional): Set to true to execute onEndFunction AT player instead of AS player. 
 
 
