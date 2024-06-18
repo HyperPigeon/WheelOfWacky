@@ -36,7 +36,7 @@ public class WackyWheelBlockEntity extends BlockEntity {
     private final List<SpellType> wedgeSpells = new ArrayList<>();
     private ServerPlayerEntity spinningPlayer;
     private float speed = 0.0F;
-    private final float friction = 0.980F;
+    private final float friction = 0.985F;
     private float roll = 0.0F;
     private boolean spellFlag = false;
 
