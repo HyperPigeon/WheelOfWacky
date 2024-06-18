@@ -72,7 +72,7 @@ Of course, we'll actually have a create a .mcfunction file named `give_diamond.m
 give @s diamond
 ```
 
-Keep in mind that the `onCastFunction` will only and always the target the player who initially spun the wheel. 
+Keep in mind that the `onCastFunction` by default will target the player who initially spun the wheel. 
 
 To test our new command, enter the /wheel free_diamond command into chat and receive your free diamond. 
 
