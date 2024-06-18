@@ -14,6 +14,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -23,6 +24,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +36,12 @@ public class WackyWheelBlockEntity extends BlockEntity {
     private final List<SpellType> wedgeSpells = new ArrayList<>();
     private ServerPlayerEntity spinningPlayer;
     private float speed = 0.0F;
-    private final float friction = 0.975F;
+    private final float friction = 0.980F;
     private float roll = 0.0F;
     private boolean spellFlag = false;
+
+    private float particleDistance = 7.5F;
+
 
     public WackyWheelBlockEntity(BlockPos pos, BlockState state) {
         super(WheelOfWacky.WACKY_WHEEL_BLOCK_ENTITY, pos, state);
@@ -138,30 +143,30 @@ public class WackyWheelBlockEntity extends BlockEntity {
         if(wackyWheelBlockEntity.isSpinning() && wackyWheelBlockEntity.spellFlag) {
             Direction direction = blockState.get(WackyWheelBlock.FACING);
 
-            float maxDistance = Math.clamp(wackyWheelBlockEntity.getSpeed() > 5 ? wackyWheelBlockEntity.getSpeed()/3F :wackyWheelBlockEntity.getSpeed()/2F , 0.1F, 8F);
-            int particleNum = random.nextInt(11) + 1;
+            wackyWheelBlockEntity.particleDistance = (float) MathHelper.lerp(0.05 * Math.clamp(wackyWheelBlockEntity.getSpeed()/45,0.10,1), wackyWheelBlockEntity.particleDistance, 0.3);
+            int particleNum = random.nextInt(2) + 2;
 
             for(int i = 0; i <= particleNum; i++) {
-                double x = (double)blockPos.getX() + 0.55 - (double)((random.nextFloat() * 2 - 1) * maxDistance);
-                double y = (double)blockPos.getY() + 0.55 - (double)((random.nextFloat() * 2 - 1) * maxDistance);
-                double z = (double)blockPos.getZ() + 0.55 - (double)((random.nextFloat() * 2 - 1) * maxDistance);
-                double g = (double)(0.4F - (random.nextFloat() + random.nextFloat()) * 0.4F);
+                double x = (double)blockPos.getX() + 0.55 - (double)((random.nextFloat() * 2 - 1) *  wackyWheelBlockEntity.particleDistance);
+                double y = (double)blockPos.getY() + 0.55 - (double)((random.nextFloat() * 2 - 1) *  wackyWheelBlockEntity.particleDistance);
+                double z = (double)blockPos.getZ() + 0.55 - (double)((random.nextFloat() * 2 - 1) *  wackyWheelBlockEntity.particleDistance);
+                double g = 0.4F - (random.nextFloat() + random.nextFloat()) * 0.4F;
 
-//            Vec3d vec3d = new Vec3d(blockPos.getX() - x ,blockPos.getY() - y ,  blockPos.getZ() - z).normalize();
-//            double magnitude = 0.1F + 0.1F/Math.clamp(wackyWheelBlockEntity.getSpeed(), 1,30);
+            Vec3d vec3d = new Vec3d(blockPos.getX() - x ,blockPos.getY() - y ,  blockPos.getZ() - z).normalize();
+            double magnitude = 0.005F;
 
-                if (random.nextInt(5) == 0) {
-                    world.addParticle(
-                            random.nextInt(2) == 1 ?  ParticleTypes.END_ROD :ParticleTypes.ENCHANT,
-                            x + direction.getOffsetX()*g,
-                            y + direction.getOffsetY()*g,
-                            z + direction.getOffsetZ()*g,
-                            random.nextGaussian() * 0.005,
-                            random.nextGaussian() * 0.005,
-                            random.nextGaussian() * 0.005
-                    );
-                }
+                world.addParticle(
+                        new DustParticleEffect(new Vector3f(160,32,240), 1.2F),
+                        x + direction.getOffsetX()*g,
+                        y + direction.getOffsetY()*g,
+                        z + direction.getOffsetZ()*g,
+                        vec3d.getX() * magnitude,
+                        vec3d.getY() * magnitude,
+                        vec3d.getZ() * magnitude);
             }
+        }
+        else {
+            wackyWheelBlockEntity.particleDistance = 7.5F;
         }
     }
 
@@ -192,7 +197,7 @@ public class WackyWheelBlockEntity extends BlockEntity {
     public void spin(ServerPlayerEntity serverPlayerEntity){
         if(!isSpinning() && !spellFlag) {
             setSpinningPlayer(serverPlayerEntity);
-            float startSpeed = random.nextFloat(15F) + 20F;
+            float startSpeed = random.nextFloat(15F) + 30F;
             setSpeed(startSpeed);
             spellFlag = true;
             markDirty();
