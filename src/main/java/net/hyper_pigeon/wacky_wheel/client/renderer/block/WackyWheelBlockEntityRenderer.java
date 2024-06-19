@@ -87,11 +87,11 @@ public class WackyWheelBlockEntityRenderer implements BlockEntityRenderer<WackyW
         for(int i = 0; i < entity.getWedgeSpells().size(); i++) {
             float pitch = i * 22.5F;
             matrices.push();
-            matrices.translate(-1,1.0,0 );
+            matrices.translate(0,1.0,0 );
             matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(this.main_wheel.pitch));
             matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(pitch));
             matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(90F));
-            matrices.translate(0F, 1.5F, 0F);
+            matrices.translate(0F, 1.0F, 1F);
             matrices.scale(0.3F, 0.3F, 0.3F);
             this.itemRenderer.renderItem(entity.getWedgeSpells().get(i).item().getDefaultStack(), ModelTransformationMode.FIXED, lightAbove, overlay, matrices, vertexConsumers,entity.getWorld(),0);
             matrices.pop();
