@@ -206,7 +206,7 @@ public class WackyWheelBlockEntity extends BlockEntity {
     public void spin(ServerPlayerEntity serverPlayerEntity){
         if(!isSpinning() && !spellFlag) {
             setSpinningPlayer(serverPlayerEntity);
-            float startSpeed = random.nextFloat(2F) + 1F;
+            float startSpeed = random.nextFloat(1F) + 1F;
             setSpeed(startSpeed);
             spellFlag = true;
             markDirty();
