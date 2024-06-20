@@ -61,35 +61,10 @@ public class WackyWheelBlock extends HorizontalFacingBlock implements BlockEntit
         return ActionResult.SUCCESS;
     }
 
-//    @Override
-//    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-//        return Stream.of(
-//                VoxelShapes.combineAndSimplify(Block.createCuboidShape(3, -13, -13, 5, 29, 29), Stream.of(
-//                        Block.createCuboidShape(1, -1.1127, -14, 7, 17.1127, -13),
-//                        Block.createCuboidShape(1, -1.1127, -14, 7, 17.1127, -13),
-//                        Block.createCuboidShape(1, -1.1127, 29, 7, 17.1127, 30),
-//                        Block.createCuboidShape(1, -1.1127, 29, 7, 17.1127, 30),
-//                        Block.createCuboidShape(1, -14, -1.1127000000000002, 7, -13, 17.1127),
-//                        Block.createCuboidShape(1, -14, -1.1127000000000002, 7, -13, 17.1127),
-//                        Block.createCuboidShape(1, 29, -1.1127000000000002, 7, 30, 17.1127),
-//                        Block.createCuboidShape(1, 29, -1.1127000000000002, 7, 30, 17.1127)
-//                ).reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, BooleanBiFunction.OR)).get(), BooleanBiFunction.OR),
-//        Block.createCuboidShape(2, 7, 6, 6, 11, 10),
-//                Block.createCuboidShape(5, 11, 7, 6, 14, 9))
-//                .reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, BooleanBiFunction.OR)).get();
-//    }
-
-//    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-//        builder.add(new Property[]{FACING});
-//    }
-//
-//    public BlockState rotate(BlockState state, BlockRotation rotation) {
-//        return (BlockState)state.with(FACING, rotation.rotate((Direction)state.get(FACING)));
-//    }
-//
-//    public BlockState mirror(BlockState state, BlockMirror mirror) {
-//        return state.rotate(mirror.getRotation((Direction)state.get(FACING)));
-//    }
+    @Override
+    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return VoxelShapes.fullCube();
+    }
 
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         return (BlockState)this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite());
