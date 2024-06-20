@@ -17,6 +17,8 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
+import net.minecraft.client.render.item.ItemRenderer;
+import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
@@ -29,6 +31,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
+import org.joml.Quaternionf;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
@@ -47,6 +50,7 @@ public class WackyWheelBlockEntityRenderer implements BlockEntityRenderer<WackyW
     private final ModelPart eye;
 
     private final TextRenderer textRenderer;
+    private final ItemRenderer itemRenderer;
 
     public WackyWheelBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
         ModelPart root = ctx.getLayerModelPart(WheelOfWackyClient.WACKY_WHEEL_MODEL_LAYER);
@@ -54,6 +58,7 @@ public class WackyWheelBlockEntityRenderer implements BlockEntityRenderer<WackyW
         this.main_wheel = wheel.getChild("main_wheel");
         this.eye = wheel.getChild("eye");
         this.textRenderer = ctx.getTextRenderer();
+        this.itemRenderer = ctx.getItemRenderer();
     }
     @Override
     public void render(WackyWheelBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
@@ -63,20 +68,32 @@ public class WackyWheelBlockEntityRenderer implements BlockEntityRenderer<WackyW
         int textColor = entity.getCurrentWedgeSpell().titleColor().isPresent() ? entity.getCurrentWedgeSpell().titleColor().get().getRgb(): 553648127;
         Direction blockDirection = (Direction)entity.getCachedState().get(WackyWheelBlock.FACING);
         float degreeOffset = (blockDirection.equals(Direction.WEST) || blockDirection.equals(Direction.EAST)) ? -90F : 90F;
-
         matrices.push();
         matrices.translate(0.5,-0.5,0.5);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(degreeOffset  + blockDirection.asRotation()));
-
         renderText(text, matrices, vertexConsumers, lightAbove, textColor);
 
+
         if(entity.isSpinning()) {
-            this.main_wheel.pitch = MathHelper.lerpAngleDegrees(0.10F, this.main_wheel.pitch, entity.getRoll());
+            float wheelPitchToDegrees = (float) ((180F/Math.PI)*this.main_wheel.pitch);
+            this.main_wheel.pitch = (float) ((Math.PI/180F) * clerp(0.10F,wheelPitchToDegrees, entity.getRoll()));
         }
         else {
-            this.main_wheel.pitch = entity.getRoll();
+            this.main_wheel.pitch = (float) ((Math.PI/180F) * entity.getRoll());
         }
 
+        for(int i = 0; i < entity.getWedgeSpells().size(); i++) {
+            float pitch = i * 22.5F;
+            float wheelPitchToDegrees = (float) ((180F/Math.PI)*this.main_wheel.pitch);
+            matrices.push();
+            matrices.translate(0,1.0,0);
+            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(wheelPitchToDegrees + pitch));
+            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(90F));
+            matrices.translate(0F, 1.1F, -0.10F);
+            matrices.scale(0.3F, 0.3F, 0.3F);
+            this.itemRenderer.renderItem(entity.getWedgeSpells().get(i).item().getDefaultStack(), ModelTransformationMode.NONE, lightAbove, overlay, matrices, vertexConsumers,entity.getWorld(),0);
+            matrices.pop();
+        }
         this.wheel.render(matrices, vertexConsumer, lightAbove, overlay);
         matrices.pop();
     }
@@ -150,5 +167,16 @@ public class WackyWheelBlockEntityRenderer implements BlockEntityRenderer<WackyW
 
     public SpriteIdentifier getTexture() {
         return isJune() ? JUNE_WHEEL_TEXTURE : WHEEL_TEXTURE;
+    }
+
+    public float clerp(float delta, float startingAngle, float endAngle) {
+        if (endAngle < startingAngle) {
+            endAngle += 360;
+        }
+        float interpolatedAngle = startingAngle + delta * (endAngle - startingAngle);
+
+
+        interpolatedAngle %= 360;
+        return interpolatedAngle;
     }
 }

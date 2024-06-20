@@ -24,6 +24,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class WackyWheelBlockEntity extends BlockEntity {
     private final List<SpellType> wedgeSpells = new ArrayList<>();
     private ServerPlayerEntity spinningPlayer;
     private float speed = 0.0F;
-    private final float friction = 0.985F;
+    private final float friction = 0.25F;
     private float roll = 0.0F;
     private boolean spellFlag = false;
 
@@ -65,6 +66,7 @@ public class WackyWheelBlockEntity extends BlockEntity {
         this.roll = nbt.getFloat("roll");
         this.speed = nbt.getFloat("speed");
         this.spellFlag = nbt.getBoolean("spellFlag");
+
 //
 //        if(!world.isClient() && nbt.contains("spinningPlayerUUID"))
 //            this.spinningPlayer = (ServerPlayerEntity) world.getPlayerByUuid(nbt.getUuid("spinningPlayerUUID"));
@@ -101,7 +103,11 @@ public class WackyWheelBlockEntity extends BlockEntity {
     }
 
     public void setRoll(float roll){
-        this.roll = MathHelper.wrapDegrees(roll);
+        roll = roll % 360;
+        if (roll < 0) {
+            roll += 360;
+        }
+        this.roll = roll;
     }
 
     public float getFriction(){
@@ -109,11 +115,11 @@ public class WackyWheelBlockEntity extends BlockEntity {
     }
 
     public boolean isSpinning(){
-        return speed > 0.001F;
+        return speed > 0.01F;
     }
 
     public void initWedgeSpells(){
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 16; i++) {
             wedgeSpells.add((SpellType) SpellTypeRegistry.valueStream().toArray()[random.nextInt(SpellTypeRegistry.size())]);
         }
     }
@@ -143,7 +149,7 @@ public class WackyWheelBlockEntity extends BlockEntity {
         if(wackyWheelBlockEntity.isSpinning() && wackyWheelBlockEntity.spellFlag) {
             Direction direction = blockState.get(WackyWheelBlock.FACING);
 
-            wackyWheelBlockEntity.particleDistance = (float) MathHelper.lerp(0.05 * Math.clamp(wackyWheelBlockEntity.getSpeed()/45,0.10,1), wackyWheelBlockEntity.particleDistance, 0.3);
+            wackyWheelBlockEntity.particleDistance = (float) MathHelper.lerp(0.05 * Math.clamp(wackyWheelBlockEntity.getSpeed()/5,0.10,1), wackyWheelBlockEntity.particleDistance, 0.3);
             int particleNum = random.nextInt(2) + 2;
 
             for(int i = 0; i <= particleNum; i++) {
@@ -173,8 +179,11 @@ public class WackyWheelBlockEntity extends BlockEntity {
     public static void serverTick(World world, BlockPos blockPos, BlockState blockState, WackyWheelBlockEntity wackyWheelBlockEntity) {
         if(wackyWheelBlockEntity.getSpinningPlayer() != null) {
             if(wackyWheelBlockEntity.isSpinning()) {
+
                 wackyWheelBlockEntity.setRoll(wackyWheelBlockEntity.getRoll() + wackyWheelBlockEntity.getSpeed());
-                wackyWheelBlockEntity.setSpeed(wackyWheelBlockEntity.getSpeed()* wackyWheelBlockEntity.getFriction());
+//                wackyWheelBlockEntity.setSpeed(wackyWheelBlockEntity.getSpeed()* wackyWheelBlockEntity.getFriction());
+                wackyWheelBlockEntity.setSpeed(wackyWheelBlockEntity.getSpeed() - wackyWheelBlockEntity.getFriction());
+
                 wackyWheelBlockEntity.markDirty();
             }
             else if(!wackyWheelBlockEntity.isSpinning() && wackyWheelBlockEntity.spellFlag) {
@@ -197,7 +206,7 @@ public class WackyWheelBlockEntity extends BlockEntity {
     public void spin(ServerPlayerEntity serverPlayerEntity){
         if(!isSpinning() && !spellFlag) {
             setSpinningPlayer(serverPlayerEntity);
-            float startSpeed = random.nextFloat(15F) + 30F;
+            float startSpeed = random.nextFloat(30F) + 30F;
             setSpeed(startSpeed);
             spellFlag = true;
             markDirty();
@@ -213,7 +222,8 @@ public class WackyWheelBlockEntity extends BlockEntity {
     }
 
     public int getWedgeIndexFromRoll(){
-        return (int) Math.ceil(this.roll/360);
+        int index = (int)(this.getRoll()/22.5F);
+        return MathHelper.clamp(index, 0, 15);
     }
 
     public String getCurrentWedgeName(){
