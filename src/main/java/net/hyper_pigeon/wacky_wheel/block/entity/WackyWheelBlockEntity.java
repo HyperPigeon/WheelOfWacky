@@ -37,10 +37,11 @@ public class WackyWheelBlockEntity extends BlockEntity {
     private final List<SpellType> wedgeSpells = new ArrayList<>();
     private ServerPlayerEntity spinningPlayer;
     private float speed = 0.0F;
-    private final float friction = 0.25F;
     private float roll = 0.0F;
-    private boolean spellFlag = false;
 
+    private float previousRoll = 0.0F;
+
+    private boolean spellFlag = false;
     private float particleDistance = 7.5F;
 
 
@@ -60,16 +61,11 @@ public class WackyWheelBlockEntity extends BlockEntity {
                         .ifPresent(wedgeSpells::add);
             });
         }
-        else {
-            initWedgeSpells();
-        }
         this.roll = nbt.getFloat("roll");
+        this.previousRoll = nbt.getFloat("previousRoll");
         this.speed = nbt.getFloat("speed");
         this.spellFlag = nbt.getBoolean("spellFlag");
 
-//
-//        if(!world.isClient() && nbt.contains("spinningPlayerUUID"))
-//            this.spinningPlayer = (ServerPlayerEntity) world.getPlayerByUuid(nbt.getUuid("spinningPlayerUUID"));
     }
 
     @Override
@@ -81,13 +77,9 @@ public class WackyWheelBlockEntity extends BlockEntity {
         });
         nbt.put("wedgeSpells",nbtList);
         nbt.putFloat("roll",roll);
+        nbt.putFloat("previousRoll", roll);
         nbt.putFloat("speed", speed);
         nbt.putBoolean("spellFlag",spellFlag);
-//
-//        if(spinningPlayer != null) {
-//            nbt.putUuid("spinningPlayerUUID",spinningPlayer.getUuid());
-//        }
-
     }
 
     public float getSpeed(){
@@ -111,6 +103,7 @@ public class WackyWheelBlockEntity extends BlockEntity {
     }
 
     public float getFriction(){
+        float friction = 0.05F;
         return friction;
     }
 
@@ -146,10 +139,10 @@ public class WackyWheelBlockEntity extends BlockEntity {
 
 
     public static void clientTick(World world, BlockPos blockPos, BlockState blockState, WackyWheelBlockEntity wackyWheelBlockEntity) {
-        if(wackyWheelBlockEntity.isSpinning() && wackyWheelBlockEntity.spellFlag) {
+        if(wackyWheelBlockEntity.isSpinning() && wackyWheelBlockEntity.getSpellFlag()) {
             Direction direction = blockState.get(WackyWheelBlock.FACING);
 
-            wackyWheelBlockEntity.particleDistance = (float) MathHelper.lerp(0.05 * Math.clamp(wackyWheelBlockEntity.getSpeed()/5,0.10,1), wackyWheelBlockEntity.particleDistance, 0.3);
+            wackyWheelBlockEntity.particleDistance = (float) MathHelper.lerp(0.05 * Math.clamp(wackyWheelBlockEntity.getSpeed()/20,0.10,1), wackyWheelBlockEntity.particleDistance, 0.3);
             int particleNum = random.nextInt(2) + 2;
 
             for(int i = 0; i <= particleNum; i++) {
@@ -179,16 +172,14 @@ public class WackyWheelBlockEntity extends BlockEntity {
     public static void serverTick(World world, BlockPos blockPos, BlockState blockState, WackyWheelBlockEntity wackyWheelBlockEntity) {
         if(wackyWheelBlockEntity.getSpinningPlayer() != null) {
             if(wackyWheelBlockEntity.isSpinning()) {
-
+                wackyWheelBlockEntity.setPreviousRoll(wackyWheelBlockEntity.getRoll());
                 wackyWheelBlockEntity.setRoll(wackyWheelBlockEntity.getRoll() + wackyWheelBlockEntity.getSpeed());
-//                wackyWheelBlockEntity.setSpeed(wackyWheelBlockEntity.getSpeed()* wackyWheelBlockEntity.getFriction());
                 wackyWheelBlockEntity.setSpeed(wackyWheelBlockEntity.getSpeed() - wackyWheelBlockEntity.getFriction());
-
                 wackyWheelBlockEntity.markDirty();
             }
-            else if(!wackyWheelBlockEntity.isSpinning() && wackyWheelBlockEntity.spellFlag) {
+            else if(!wackyWheelBlockEntity.isSpinning() && wackyWheelBlockEntity.getSpellFlag()) {
                 wackyWheelBlockEntity.setSpeed(0F);
-                wackyWheelBlockEntity.spellFlag = false;
+                wackyWheelBlockEntity.setSpellFlag(false);
                 int wedgeIndex = wackyWheelBlockEntity.getWedgeIndexFromRoll();
                 SpellManager.addSpell(wackyWheelBlockEntity.getWedgeSpells().get(wedgeIndex),wackyWheelBlockEntity.getSpinningPlayer());
                 wackyWheelBlockEntity.setSpinningPlayer(null);
@@ -206,7 +197,7 @@ public class WackyWheelBlockEntity extends BlockEntity {
     public void spin(ServerPlayerEntity serverPlayerEntity){
         if(!isSpinning() && !spellFlag) {
             setSpinningPlayer(serverPlayerEntity);
-            float startSpeed = random.nextFloat(30F) + 30F;
+            float startSpeed = random.nextFloat(10F) + 10F;
             setSpeed(startSpeed);
             spellFlag = true;
             markDirty();
@@ -238,4 +229,20 @@ public class WackyWheelBlockEntity extends BlockEntity {
         return spellType;
     }
 
+    public void setSpellFlag(boolean bl) {
+        this.spellFlag = bl;
+    }
+
+    public boolean getSpellFlag() {
+        return this.spellFlag;
+    }
+
+    public float getPreviousRoll(){
+        return this.previousRoll;
+    }
+
+
+    public void setPreviousRoll(float previousRoll) {
+        this.previousRoll = previousRoll;
+    }
 }

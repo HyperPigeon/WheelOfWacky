@@ -73,10 +73,8 @@ public class WackyWheelBlockEntityRenderer implements BlockEntityRenderer<WackyW
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(degreeOffset  + blockDirection.asRotation()));
         renderText(text, matrices, vertexConsumers, lightAbove, textColor);
 
-
         if(entity.isSpinning()) {
-            float wheelPitchToDegrees = (float) ((180F/Math.PI)*this.main_wheel.pitch);
-            this.main_wheel.pitch = (float) ((Math.PI/180F) * clerp(0.10F,wheelPitchToDegrees, entity.getRoll()));
+            this.main_wheel.pitch = (float) ((Math.PI/180F) * clerp(tickDelta,entity.getPreviousRoll(), entity.getRoll()));
         }
         else {
             this.main_wheel.pitch = (float) ((Math.PI/180F) * entity.getRoll());
@@ -84,17 +82,17 @@ public class WackyWheelBlockEntityRenderer implements BlockEntityRenderer<WackyW
 
         for(int i = 0; i < entity.getWedgeSpells().size(); i++) {
             float pitch = i * 22.5F;
-            float wheelPitchToDegrees = (float) ((180F/Math.PI)*this.main_wheel.pitch);
             matrices.push();
             matrices.translate(0,1.0,0);
-            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(wheelPitchToDegrees + pitch));
+            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(clerp(tickDelta,entity.getPreviousRoll(), entity.getRoll())));
+            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(pitch));
             matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(90F));
             matrices.translate(0F, 1.1F, -0.10F);
             matrices.scale(0.3F, 0.3F, 0.3F);
             this.itemRenderer.renderItem(entity.getWedgeSpells().get(i).item().getDefaultStack(), ModelTransformationMode.NONE, lightAbove, overlay, matrices, vertexConsumers,entity.getWorld(),0);
             matrices.pop();
         }
-        this.wheel.render(matrices, vertexConsumer, lightAbove, overlay);
+        this.wheel.render(matrices,vertexConsumer,lightAbove,overlay);
         matrices.pop();
     }
 
