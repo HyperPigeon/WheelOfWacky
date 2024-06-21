@@ -16,8 +16,13 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
@@ -44,6 +49,7 @@ public class WackyWheelBlockEntity extends BlockEntity {
     private boolean spellFlag = false;
     private float particleDistance = 7.5F;
 
+    private int previousIndex = 0;
 
     public WackyWheelBlockEntity(BlockPos pos, BlockState state) {
         super(WheelOfWacky.WACKY_WHEEL_BLOCK_ENTITY, pos, state);
@@ -163,6 +169,13 @@ public class WackyWheelBlockEntity extends BlockEntity {
                         vec3d.getY() * magnitude,
                         vec3d.getZ() * magnitude);
             }
+
+            int index = wackyWheelBlockEntity.getWedgeIndexFromRoll();
+
+            if(wackyWheelBlockEntity.previousIndex != index) {
+                world.playSoundAtBlockCenter(blockPos, Registries.SOUND_EVENT.get(SoundEvents.BLOCK_NOTE_BLOCK_HAT.registryKey()), SoundCategory.RECORDS, 10F, 1F, false);
+                wackyWheelBlockEntity.previousIndex = index;
+            }
         }
         else {
             wackyWheelBlockEntity.particleDistance = 7.5F;
@@ -241,8 +254,8 @@ public class WackyWheelBlockEntity extends BlockEntity {
         return this.previousRoll;
     }
 
-
     public void setPreviousRoll(float previousRoll) {
         this.previousRoll = previousRoll;
     }
+
 }
