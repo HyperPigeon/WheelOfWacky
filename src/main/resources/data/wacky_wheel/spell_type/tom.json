@@ -1,0 +1,9 @@
+{
+  "name": "Tom",
+  "titleColor": "#8B0000",
+  "flavorText": "Shit the bed.",
+  "itemID": "minecraft:bone",
+  "castingTime": 40,
+  "onCastFunction": "tom",
+  "executeOnCastFunctionAtPlayer": true
+}

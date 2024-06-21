@@ -1,0 +1,7 @@
+{
+  "name": "Jackpot!",
+  "titleColor": "#00FF00",
+  "itemID": "minecraft:emerald",
+  "castingTime": 50,
+  "onCastFunction": "jackpot"
+}

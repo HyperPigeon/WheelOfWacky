@@ -62,6 +62,8 @@ public class WackyWheelBlockEntityRenderer implements BlockEntityRenderer<WackyW
     }
     @Override
     public void render(WackyWheelBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+        System.out.println("client side roll: " + entity.getRoll());
+
         VertexConsumer vertexConsumer = getTexture().getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
         int lightAbove = WorldRenderer.getLightmapCoordinates(entity.getWorld(), entity.getPos().up());
         Text text = Text.literal(entity.getCurrentWedgeName());
@@ -71,17 +73,20 @@ public class WackyWheelBlockEntityRenderer implements BlockEntityRenderer<WackyW
         matrices.push();
         matrices.translate(0.5,-0.5,0.5);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(degreeOffset  + blockDirection.asRotation()));
+
+        System.out.println("current index: " + entity.getWedgeIndexFromRoll(entity.getRoll()));
         renderText(text, matrices, vertexConsumers, lightAbove, textColor);
 
-        if(entity.isSpinning()) {
-            this.main_wheel.pitch = (float) ((Math.PI/180F) * clerp(tickDelta,entity.getPreviousRoll(), entity.getRoll()));
-        }
-        else {
-            this.main_wheel.pitch = (float) ((Math.PI/180F) * entity.getRoll());
-        }
+//        if(entity.isSpinning()) {
+//            this.main_wheel.pitch = (float) ((Math.PI/180F) * clerp(tickDelta,entity.getPreviousRoll(), entity.getRoll()));
+//        }
+//        else {
+//            this.main_wheel.pitch = (float) ((Math.PI/180F) * entity.getRoll());
+//        }
+        this.main_wheel.pitch = (float) ((Math.PI/180F) * clerp(tickDelta,entity.getPreviousRoll(), entity.getRoll()));
 
         for(int i = 0; i < entity.getWedgeSpells().size(); i++) {
-            float pitch = i * 22.5F;
+            float pitch = 360 - i*22.5F;
             matrices.push();
             matrices.translate(0,1.0,0);
             matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(clerp(tickDelta,entity.getPreviousRoll(), entity.getRoll())));

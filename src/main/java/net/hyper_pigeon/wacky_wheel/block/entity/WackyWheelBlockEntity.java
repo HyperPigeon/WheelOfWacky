@@ -170,7 +170,7 @@ public class WackyWheelBlockEntity extends BlockEntity {
                         vec3d.getZ() * magnitude);
             }
 
-            int index = wackyWheelBlockEntity.getWedgeIndexFromRoll();
+            int index = wackyWheelBlockEntity.getWedgeIndexFromRoll(wackyWheelBlockEntity.getRoll());
 
             if(wackyWheelBlockEntity.previousIndex != index) {
                 world.playSoundAtBlockCenter(blockPos, Registries.SOUND_EVENT.get(SoundEvents.BLOCK_NOTE_BLOCK_HAT.registryKey()), SoundCategory.RECORDS, 10F, 1F, false);
@@ -183,6 +183,9 @@ public class WackyWheelBlockEntity extends BlockEntity {
     }
 
     public static void serverTick(World world, BlockPos blockPos, BlockState blockState, WackyWheelBlockEntity wackyWheelBlockEntity) {
+        System.out.println("server side roll: " + wackyWheelBlockEntity.getRoll());
+        wackyWheelBlockEntity.printOutSpellList();
+
         if(wackyWheelBlockEntity.getSpinningPlayer() != null) {
             if(wackyWheelBlockEntity.isSpinning()) {
                 wackyWheelBlockEntity.setPreviousRoll(wackyWheelBlockEntity.getRoll());
@@ -193,7 +196,7 @@ public class WackyWheelBlockEntity extends BlockEntity {
             else if(!wackyWheelBlockEntity.isSpinning() && wackyWheelBlockEntity.getSpellFlag()) {
                 wackyWheelBlockEntity.setSpeed(0F);
                 wackyWheelBlockEntity.setSpellFlag(false);
-                int wedgeIndex = wackyWheelBlockEntity.getWedgeIndexFromRoll();
+                int wedgeIndex = wackyWheelBlockEntity.getWedgeIndexFromRoll(wackyWheelBlockEntity.getRoll());
                 SpellManager.addSpell(wackyWheelBlockEntity.getWedgeSpells().get(wedgeIndex),wackyWheelBlockEntity.getSpinningPlayer());
                 wackyWheelBlockEntity.setSpinningPlayer(null);
                 wackyWheelBlockEntity.markDirty();
@@ -225,19 +228,19 @@ public class WackyWheelBlockEntity extends BlockEntity {
         this.spinningPlayer = spinningPlayer;
     }
 
-    public int getWedgeIndexFromRoll(){
-        int index = (int)(this.getRoll()/22.5F);
+    public int getWedgeIndexFromRoll(float roll){
+        int index = Math.round(roll/22.5F);
         return MathHelper.clamp(index, 0, 15);
     }
 
     public String getCurrentWedgeName(){
-        int index = getWedgeIndexFromRoll();
+        int index = getWedgeIndexFromRoll(this.getRoll());
         SpellType spellType = getWedgeSpells().get(index);
         return spellType.name();
     }
 
     public SpellType getCurrentWedgeSpell(){
-        int index = getWedgeIndexFromRoll();
+        int index = getWedgeIndexFromRoll(this.getRoll());
         SpellType spellType = getWedgeSpells().get(index);
         return spellType;
     }
@@ -256,6 +259,11 @@ public class WackyWheelBlockEntity extends BlockEntity {
 
     public void setPreviousRoll(float previousRoll) {
         this.previousRoll = previousRoll;
+    }
+    public void printOutSpellList(){
+        for (int i = 0; i < getWedgeSpells().size(); i++) {
+            System.out.println(i + " " + getWedgeSpells().get(i));
+        }
     }
 
 }
