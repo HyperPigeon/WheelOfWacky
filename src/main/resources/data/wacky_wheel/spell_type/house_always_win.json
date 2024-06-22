@@ -1,0 +1,8 @@
+{
+  "name": "The House Always Wins.",
+  "titleColor": "#C87606",
+  "flavorText": "I hope this interaction doesn't cause any fallout between us.",
+  "itemID": "minecraft:dirt",
+  "castingTime": 30,
+  "onCastFunction": "house_always_wins"
+}

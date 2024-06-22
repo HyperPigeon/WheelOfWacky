@@ -1,0 +1,8 @@
+{
+  "name": "An Act of Charity",
+  "titleColor": "#ADD8E6",
+  "flavorText": "Thank you for your generous donation!",
+  "itemID": "minecraft:glass_bottle",
+  "castingTime": 10,
+  "onCastFunction": "act_of_charity"
+}

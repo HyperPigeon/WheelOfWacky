@@ -2,7 +2,7 @@
   "name": "Bob",
   "titleColor": "#8B0000",
   "itemID": "minecraft:rotten_flesh",
-  "castingTime": 40,
+  "castingTime": 60,
   "onCastFunction": "bob",
   "executeOnCastFunctionAtPlayer": true
 }

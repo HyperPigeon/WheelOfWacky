@@ -1,0 +1,9 @@
+{
+  "name": "Swiper no swiping!",
+  "titleColor": "#ffa500",
+  "flavorText": "Oh man!",
+  "itemID": "minecraft:sweet_berries",
+  "castingTime": 20,
+  "onCastFunction": "swiper_no_swiping",
+  "executeOnCastFunctionAtPlayer": true
+}

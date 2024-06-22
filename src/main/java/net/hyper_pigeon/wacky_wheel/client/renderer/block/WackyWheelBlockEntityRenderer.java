@@ -62,7 +62,6 @@ public class WackyWheelBlockEntityRenderer implements BlockEntityRenderer<WackyW
     }
     @Override
     public void render(WackyWheelBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        System.out.println("client side roll: " + entity.getRoll());
 
         VertexConsumer vertexConsumer = getTexture().getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
         int lightAbove = WorldRenderer.getLightmapCoordinates(entity.getWorld(), entity.getPos().up());
@@ -74,7 +73,6 @@ public class WackyWheelBlockEntityRenderer implements BlockEntityRenderer<WackyW
         matrices.translate(0.5,-0.5,0.5);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(degreeOffset  + blockDirection.asRotation()));
 
-        System.out.println("current index: " + entity.getWedgeIndexFromRoll(entity.getRoll()));
         renderText(text, matrices, vertexConsumers, lightAbove, textColor);
 
 //        if(entity.isSpinning()) {

@@ -1,0 +1,8 @@
+{
+  "name": "The Phantom Menace",
+  "titleColor": "#566AA6",
+  "itemID": "minecraft:phantom_membrane",
+  "castingTime": 10,
+  "onCastFunction": "phantom_menace",
+  "executeOnCastFunctionAtPlayer": true
+}

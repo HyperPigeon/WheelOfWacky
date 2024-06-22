@@ -1,0 +1,9 @@
+{
+  "name": "Wheel Boy",
+  "titleColor": "#89CFF0",
+  "flavorText": "He hungers for cake.",
+  "itemID": "minecraft:cake",
+  "castingTime": 60,
+  "onCastFunction": "wheel_boy",
+  "executeOnCastFunctionAtPlayer": true
+}

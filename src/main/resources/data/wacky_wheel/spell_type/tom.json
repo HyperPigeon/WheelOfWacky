@@ -3,7 +3,7 @@
   "titleColor": "#8B0000",
   "flavorText": "Shit the bed.",
   "itemID": "minecraft:bone",
-  "castingTime": 40,
+  "castingTime": 60,
   "onCastFunction": "tom",
   "executeOnCastFunctionAtPlayer": true
 }

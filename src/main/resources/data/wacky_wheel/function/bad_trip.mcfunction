@@ -1,0 +1,12 @@
+effect give @s slowness 60
+effect give @s mining_fatigue 60
+effect give @s nausea 60
+effect give @s blindness 60
+effect give @s hunger 60
+effect give @s weakness 60
+effect give @s wither 60
+effect give @s levitation 15
+effect give @s unluck 60
+effect give @s darkness 60
+effect give @s infested 60
+effect give @s wind_charged 60

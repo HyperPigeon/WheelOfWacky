@@ -1,0 +1,7 @@
+{
+  "name": "Break the Bank!",
+  "titleColor": "#00FF00",
+  "itemID": "minecraft:emerald_block",
+  "castingTime": 10,
+  "onCastFunction": "break_the_bank"
+}

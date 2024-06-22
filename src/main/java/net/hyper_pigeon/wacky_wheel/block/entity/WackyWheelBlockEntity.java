@@ -183,9 +183,6 @@ public class WackyWheelBlockEntity extends BlockEntity {
     }
 
     public static void serverTick(World world, BlockPos blockPos, BlockState blockState, WackyWheelBlockEntity wackyWheelBlockEntity) {
-        System.out.println("server side roll: " + wackyWheelBlockEntity.getRoll());
-        wackyWheelBlockEntity.printOutSpellList();
-
         if(wackyWheelBlockEntity.getSpinningPlayer() != null) {
             if(wackyWheelBlockEntity.isSpinning()) {
                 wackyWheelBlockEntity.setPreviousRoll(wackyWheelBlockEntity.getRoll());
@@ -259,11 +256,6 @@ public class WackyWheelBlockEntity extends BlockEntity {
 
     public void setPreviousRoll(float previousRoll) {
         this.previousRoll = previousRoll;
-    }
-    public void printOutSpellList(){
-        for (int i = 0; i < getWedgeSpells().size(); i++) {
-            System.out.println(i + " " + getWedgeSpells().get(i));
-        }
     }
 
 }
