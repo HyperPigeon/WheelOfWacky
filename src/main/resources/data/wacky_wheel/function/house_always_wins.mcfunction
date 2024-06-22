@@ -1,6 +1,9 @@
 clear @s diamond
+clear @s diamond_block
 clear @s gold_ingot
+clear @s gold_block
 clear @s ancient_debris
 clear @s emerald
+clear @s emerald_block
 clear @s netherite_scrap
 clear @s netherite_ingot
