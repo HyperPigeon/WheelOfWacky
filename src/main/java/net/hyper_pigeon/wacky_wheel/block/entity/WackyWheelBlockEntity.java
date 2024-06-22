@@ -47,7 +47,7 @@ public class WackyWheelBlockEntity extends BlockEntity {
     private float previousRoll = 0.0F;
 
     private boolean spellFlag = false;
-    private float particleDistance = 7.5F;
+    private float particleDistance = 3.5F;
 
     private int previousIndex = 0;
 
@@ -148,7 +148,7 @@ public class WackyWheelBlockEntity extends BlockEntity {
         if(wackyWheelBlockEntity.isSpinning() && wackyWheelBlockEntity.getSpellFlag()) {
             Direction direction = blockState.get(WackyWheelBlock.FACING);
 
-            wackyWheelBlockEntity.particleDistance = (float) MathHelper.lerp(0.05 * Math.clamp(wackyWheelBlockEntity.getSpeed()/20,0.10,1), wackyWheelBlockEntity.particleDistance, 0.3);
+//            wackyWheelBlockEntity.particleDistance = (float) MathHelper.lerp(0.05 * Math.clamp(wackyWheelBlockEntity.getSpeed()/20,0.1,1), wackyWheelBlockEntity.particleDistance, 0);
             int particleNum = random.nextInt(2) + 2;
 
             for(int i = 0; i <= particleNum; i++) {
