@@ -12,7 +12,7 @@ public class Spell {
         this.spellType = spellType;
         this.player = player;
         this.startTime = player.getServerWorld().getTime() + spellType.castingTime();
-        this.endTime = spellType.duration().isPresent() ? player.getServerWorld().getTime() + spellType.duration().get() : startTime;
+        this.endTime = spellType.duration().isPresent() ? player.getServerWorld().getTime() + spellType.castingTime() +  spellType.duration().get() : startTime;
     }
 
     public long getStartTime(){

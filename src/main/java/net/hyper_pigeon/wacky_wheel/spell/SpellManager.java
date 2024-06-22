@@ -42,7 +42,7 @@ public class SpellManager {
         if(spellType.onEndFunction().isPresent()) {
             String executeModifier = spellType.executeOnEndFunctionAtPlayer().isPresent() && spellType.executeOnEndFunctionAtPlayer().get() ? "at" : "as";
 
-            String parsedCommand = "execute " + executeModifier  + " " + serverPlayerEntity.getUuidAsString() + " run function " + "wacky_wheel:" + spellType.onEndFunction();
+            String parsedCommand = "execute " + executeModifier  + " " + serverPlayerEntity.getUuidAsString() + " run function " + "wacky_wheel:" + spellType.onEndFunction().get();
             ServerCommandSource commandSource = serverPlayerEntity.getServer().getCommandSource();
             ParseResults<ServerCommandSource> parseResults = commandSource.getDispatcher().parse(parsedCommand, commandSource);
             serverPlayerEntity.getServer().getCommandManager().execute(parseResults, parsedCommand);
