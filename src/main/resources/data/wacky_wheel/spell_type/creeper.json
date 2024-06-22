@@ -1,0 +1,9 @@
+{
+  "name": "Creeper",
+  "titleColor": "#0f800f",
+  "flavorText": "Aw man.",
+  "itemID": "minecraft:creeper_head",
+  "castingTime": 60,
+  "onCastFunction": "creeper",
+  "executeOnCastFunctionAtPlayer": true
+}
