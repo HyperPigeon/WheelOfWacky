@@ -1,0 +1,10 @@
+{
+  "name": "Shrink!",
+  "titleColor": "#FFFFFF",
+  "flavorText": "I'm 5'10 - BdoubleO100",
+  "itemID": "minecraft:potion",
+  "castingTime": 10,
+  "onCastFunction": "shrink_start",
+  "duration": 1200,
+  "onEndFunction": "shrink_end"
+}

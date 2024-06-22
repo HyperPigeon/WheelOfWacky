@@ -1,7 +1,7 @@
 {
   "name": "Bad Trip",
   "titleColor": "#8ba189",
-  "itemID": "minecraft:potion",
+  "itemID": "red_mushroom",
   "castingTime": 30,
   "onCastFunction": "bad_trip"
 }
