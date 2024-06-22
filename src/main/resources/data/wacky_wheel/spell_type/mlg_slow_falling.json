@@ -1,0 +1,7 @@
+{
+  "name": "MLG: Slow Falling",
+  "titleColor": "#FFFFFF",
+  "itemID": "minecraft:splash_potion",
+  "castingTime": 10,
+  "onCastFunction": "mlg_slow_falling"
+}
