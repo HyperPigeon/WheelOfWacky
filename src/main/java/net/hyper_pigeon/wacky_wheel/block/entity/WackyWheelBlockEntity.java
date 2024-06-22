@@ -173,7 +173,7 @@ public class WackyWheelBlockEntity extends BlockEntity {
             int index = wackyWheelBlockEntity.getWedgeIndexFromRoll(wackyWheelBlockEntity.getRoll());
 
             if(wackyWheelBlockEntity.previousIndex != index) {
-                world.playSoundAtBlockCenter(blockPos, Registries.SOUND_EVENT.get(SoundEvents.BLOCK_NOTE_BLOCK_HAT.registryKey()), SoundCategory.RECORDS, 10F, 1F, false);
+                world.playSoundAtBlockCenter(blockPos, Registries.SOUND_EVENT.get(SoundEvents.BLOCK_NOTE_BLOCK_HAT.registryKey()), SoundCategory.RECORDS, 5F, 1F, false);
                 wackyWheelBlockEntity.previousIndex = index;
             }
         }
@@ -196,6 +196,7 @@ public class WackyWheelBlockEntity extends BlockEntity {
                 int wedgeIndex = wackyWheelBlockEntity.getWedgeIndexFromRoll(wackyWheelBlockEntity.getRoll());
                 SpellManager.addSpell(wackyWheelBlockEntity.getWedgeSpells().get(wedgeIndex),wackyWheelBlockEntity.getSpinningPlayer());
                 wackyWheelBlockEntity.setSpinningPlayer(null);
+                wackyWheelBlockEntity.removeAndReplaceSpell(wedgeIndex,blockPos);
                 wackyWheelBlockEntity.markDirty();
             }
         }
@@ -256,6 +257,11 @@ public class WackyWheelBlockEntity extends BlockEntity {
 
     public void setPreviousRoll(float previousRoll) {
         this.previousRoll = previousRoll;
+    }
+
+    public void removeAndReplaceSpell(int index, BlockPos blockPos){
+        getWedgeSpells().set(index, (SpellType) SpellTypeRegistry.valueStream().toArray()[random.nextInt(SpellTypeRegistry.size())]);
+        world.playSound(null,blockPos,SoundEvents.ENTITY_ITEM_FRAME_REMOVE_ITEM,SoundCategory.BLOCKS,5F,1);
     }
 
 }
