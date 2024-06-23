@@ -96,6 +96,10 @@ To test our new command, enter the /wheel free_diamond command into chat and rec
 
 `duration` (Optional): Time in ticks that the spell lasts.
 
+`onTickFunction` (Optional): Name of the .mcfunction that executes every tick that the spell lasts.
+
+`executeOnTickFunctionAtPlayer` (Optional): Set to true to execute onTickFunction AT player instead of as player.
+
 `onEndFunction` (Optional) : Name of the .mcfunction file that executes when the spell ends. 
 
 `executeOnEndFunctionAtPlayer` (Optional): Set to true to execute onEndFunction AT player instead of AS player. 
