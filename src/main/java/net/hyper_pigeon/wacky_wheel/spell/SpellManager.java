@@ -38,6 +38,17 @@ public class SpellManager {
         serverPlayerEntity.getServer().getCommandManager().execute(parseResults, parsedCommand);
     }
 
+    public static void onSpellTick(SpellType spellType, ServerPlayerEntity serverPlayerEntity) {
+        if(spellType.onTickFunction().isPresent()) {
+            String executeModifier = spellType.executeOnTickFunctionAtPlayer().isPresent() && spellType.executeOnTickFunctionAtPlayer().get() ? "at" : "as";
+
+            String parsedCommand = "execute " + executeModifier  + " " + serverPlayerEntity.getUuidAsString() + " run function " + "wacky_wheel:" + spellType.onTickFunction().get();
+            ServerCommandSource commandSource = serverPlayerEntity.getServer().getCommandSource();
+            ParseResults<ServerCommandSource> parseResults = commandSource.getDispatcher().parse(parsedCommand, commandSource);
+            serverPlayerEntity.getServer().getCommandManager().execute(parseResults, parsedCommand);
+        }
+    }
+
     public static void onSpellEnd(SpellType spellType, ServerPlayerEntity serverPlayerEntity){
         if(spellType.onEndFunction().isPresent()) {
             String executeModifier = spellType.executeOnEndFunctionAtPlayer().isPresent() && spellType.executeOnEndFunctionAtPlayer().get() ? "at" : "as";
@@ -57,6 +68,9 @@ public class SpellManager {
                 }
                 if (serverWorld.getTime() >= spell.getEndTime()) {
                     onSpellEnd(spell.getSpellType(), spell.getPlayer());
+                }
+                else {
+                    onSpellTick(spell.getSpellType(), spell.getPlayer());
                 }
             }
             inProgressSpells.removeIf(spell -> serverWorld.getTime() >= spell.getEndTime());

@@ -148,7 +148,6 @@ public class WackyWheelBlockEntity extends BlockEntity {
         if(wackyWheelBlockEntity.isSpinning() && wackyWheelBlockEntity.getSpellFlag()) {
             Direction direction = blockState.get(WackyWheelBlock.FACING);
 
-//            wackyWheelBlockEntity.particleDistance = (float) MathHelper.lerp(0.05 * Math.clamp(wackyWheelBlockEntity.getSpeed()/20,0.1,1), wackyWheelBlockEntity.particleDistance, 0);
             int particleNum = random.nextInt(2) + 2;
 
             for(int i = 0; i <= particleNum; i++) {
