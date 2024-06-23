@@ -51,7 +51,6 @@ public class WackyWheelBlock extends HorizontalFacingBlock implements BlockEntit
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (!world.isClient) {
-//            player.sendMessage(Text.literal("Hello, world!"), false);
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof WackyWheelBlockEntity wackyWheelBlockEntity) {
                 wackyWheelBlockEntity.spin((ServerPlayerEntity) player);

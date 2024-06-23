@@ -17,18 +17,6 @@ public class WheelOfWackyCommands {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             dispatcher.register(CommandManager.literal("wheel")
                     .requires(source -> source.hasPermissionLevel(2))
-//                    .executes(context -> {
-//                        context.getSource().sendFeedback(() -> Text.literal("Called /wheel with no arguments."), false);
-//                        return 1;
-//                    })
-//                    .then(CommandManager.literal("spell")
-////                            .executes(context -> {
-////                        context.getSource()
-////                                .sendFeedback(
-////                                        () -> Text.literal("Called spell subcommand with no arguments."), false);
-////                        return 1;
-////                    })
-//                    )
                     .then(CommandManager.argument("spell_type", StringArgumentType.string())
                             .executes(context -> {
                                 String spell_name = StringArgumentType.getString(context, "spell_type");
@@ -38,10 +26,6 @@ public class WheelOfWackyCommands {
                                     ServerPlayerEntity serverPlayerEntity = context.getSource().getPlayerOrThrow();
 
                                     SpellManager.addSpell(spellType,serverPlayerEntity);
-//                                    String parsedCommand = "execute as " + serverPlayerEntity.getUuidAsString() + " run function " + "wacky_wheel:" + spellType.onCastFunction();
-//                                    ServerCommandSource commandSource = serverPlayerEntity.getServer().getCommandSource();
-//                                    ParseResults<ServerCommandSource> parseResults = commandSource.getDispatcher().parse(parsedCommand, commandSource);
-//                                    serverPlayerEntity.getServer().getCommandManager().execute(parseResults, parsedCommand);
 
                                     context.getSource()
                                             .sendFeedback(
