@@ -1,0 +1,8 @@
+{
+  "name": "Fish out of water",
+  "titleColor": "#4f42b5",
+  "itemID": "minecraft:salmon",
+  "castingTime": 20,
+  "onCastFunction": "fish_out_of_water",
+  "executeOnCastFunctionAtPlayer": true
+}

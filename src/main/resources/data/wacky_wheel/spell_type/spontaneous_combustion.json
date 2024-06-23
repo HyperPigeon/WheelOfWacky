@@ -1,0 +1,7 @@
+{
+  "name": "Spontaneous Combustion",
+  "titleColor": "#FF0000",
+  "itemID": "minecraft:flint_and_steel",
+  "castingTime": 20,
+  "onCastFunction": "spontaneous_combustion"
+}

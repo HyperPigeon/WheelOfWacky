@@ -1,0 +1,7 @@
+{
+  "name": "God Mode",
+  "titleColor": "#FFD700",
+  "itemID": "minecraft:enchanted_golden_apple",
+  "castingTime": 30,
+  "onCastFunction": "god_mode"
+}

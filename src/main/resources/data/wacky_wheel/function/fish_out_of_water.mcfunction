@@ -1,0 +1,15 @@
+summon cod ^ ^1 ^
+summon cod ^ ^1 ^
+summon cod ^ ^1 ^
+summon salmon ^ ^1 ^
+summon salmon ^ ^1 ^
+summon salmon ^ ^1 ^
+summon pufferfish ^ ^1 ^
+summon pufferfish ^ ^1 ^
+summon pufferfish ^ ^1 ^
+summon tropical_fish ^ ^1 ^
+summon tropical_fish ^ ^1 ^
+summon tropical_fish ^ ^1 ^
+summon guardian ^ ^1 ^
+summon guardian ^ ^1 ^
+summon guardian ^ ^1 ^

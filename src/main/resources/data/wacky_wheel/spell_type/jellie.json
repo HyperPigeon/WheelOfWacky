@@ -1,0 +1,8 @@
+{
+  "name": "Jellie",
+  "titleColor": "#808080",
+  "itemID": "minecraft:cat_spawn_egg",
+  "castingTime": 20,
+  "onCastFunction": "jellie",
+  "executeOnCastFunctionAtPlayer": true
+}

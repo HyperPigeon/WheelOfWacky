@@ -1,0 +1,8 @@
+{
+  "name": "FIREBALL!",
+  "titleColor": "#FF0000",
+  "itemID": "minecraft:fire_charge",
+  "castingTime": 20,
+  "onCastFunction": "fireball",
+  "executeOnCastFunctionAtPlayer": true
+}

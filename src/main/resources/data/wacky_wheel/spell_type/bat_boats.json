@@ -1,0 +1,8 @@
+{
+  "name": "Bat Boats",
+  "titleColor": "#000000",
+  "itemID": "minecraft:bat_spawn_egg",
+  "castingTime": 20,
+  "onCastFunction": "bat_boats",
+  "executeOnCastFunctionAtPlayer": true
+}
