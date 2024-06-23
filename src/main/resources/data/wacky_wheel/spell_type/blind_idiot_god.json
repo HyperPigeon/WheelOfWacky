@@ -1,0 +1,7 @@
+{
+  "name": "Blind Idiot God",
+  "titleColor": "#FF0000",
+  "itemID": "minecraft:enchanted_golden_apple",
+  "castingTime": 30,
+  "onCastFunction": "blind_idiot_god"
+}

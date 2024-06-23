@@ -3,7 +3,7 @@ effect give @s haste 60 4
 effect give @s strength 60 4
 effect give @s jump_boost 60 4
 effect give @s regeneration 60 4
-effect give @s resistance 60 2
+effect give @s resistance 30 1
 effect give @s fire_resistance 60 4
 effect give @s water_breathing 15 4
 effect give @s invisibility 60 4
