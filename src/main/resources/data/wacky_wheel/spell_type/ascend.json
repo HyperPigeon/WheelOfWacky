@@ -1,0 +1,8 @@
+{
+  "name": "ASCEND",
+  "flavorText": "It's a long way down...",
+  "titleColor": "#7f7784",
+  "itemID": "minecraft:feather",
+  "castingTime": 20,
+  "onCastFunction": "ascend"
+}

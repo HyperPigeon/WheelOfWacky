@@ -1,1 +1,1 @@
-summon cat ~ ~ ~ {variant:"minecraft:jellie"}
+summon cat ~ ~ ~ {variant:"minecraft:jellie", Tags:["wacky_wheel"]}

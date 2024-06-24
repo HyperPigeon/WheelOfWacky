@@ -1,0 +1,8 @@
+{
+  "name": "Gotta go fast!",
+  "titleColor": "#0000ff",
+  "itemID": "minecraft:potion",
+  "castingTime": 20,
+  "onCastFunction": "gotta_go_fast"
+
+}

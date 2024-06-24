@@ -1,0 +1,7 @@
+{
+  "name": "Free Healthcare!",
+  "titleColor": "#FFD700",
+  "itemID": "minecraft:potion",
+  "castingTime": 20,
+  "onCastFunction": "free_healthcare"
+}

@@ -1,1 +1,1 @@
-summon creeper ^ ^1 ^1 {powered:1b}
+summon creeper ^ ^1 ^1 {powered:1b, Tags:["wacky_wheel"]}

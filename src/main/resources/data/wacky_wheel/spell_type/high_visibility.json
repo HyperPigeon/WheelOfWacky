@@ -1,0 +1,7 @@
+{
+  "name": "High Visibility",
+  "titleColor": "#FFFF00",
+  "itemID": "minecraft:glowstone_dust",
+  "castingTime": 30,
+  "onCastFunction": "high_visibility"
+}

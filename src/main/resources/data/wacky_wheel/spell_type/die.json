@@ -1,0 +1,7 @@
+{
+  "name": "Die!",
+  "titleColor": "#000000",
+  "itemID": "minecraft:skeleton_skull",
+  "castingTime": 60,
+  "onCastFunction": "die"
+}

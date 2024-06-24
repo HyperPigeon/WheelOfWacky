@@ -1,0 +1,7 @@
+{
+  "name": "Bunny Hops!",
+  "titleColor": "#af8d64",
+  "itemID": "minecraft:rabbit_foot",
+  "castingTime": 20,
+  "onCastFunction": "bunny_hops"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "Man's Best Friend",
+  "titleColor": "#FFFFFF",
+  "itemID": "minecraft:wolf_spawn_egg",
+  "castingTime": 20,
+  "onCastFunction": "mans_best_friend",
+  "executeOnCastFunctionAtPlayer": true
+}

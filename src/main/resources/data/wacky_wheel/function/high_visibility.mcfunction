@@ -1,0 +1,1 @@
+effect give @s glowing 180

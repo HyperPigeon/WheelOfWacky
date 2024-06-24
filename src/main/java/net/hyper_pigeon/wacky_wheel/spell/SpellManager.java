@@ -31,8 +31,9 @@ public class SpellManager {
 
     public static void castSpell(SpellType spellType, ServerPlayerEntity serverPlayerEntity){
         String executeModifier = spellType.executeOnCastFunctionAtPlayer().isPresent() && spellType.executeOnCastFunctionAtPlayer().get() ? "at" : "as";
+        String targetSelector = spellType.onCastTargetSelector().isPresent() ? spellType.onCastTargetSelector().get() : serverPlayerEntity.getUuidAsString();
 
-        String parsedCommand = "execute " + executeModifier  + " " + serverPlayerEntity.getUuidAsString() + " run function " + "wacky_wheel:" + spellType.onCastFunction();
+        String parsedCommand = "execute " + executeModifier  + " " + targetSelector + " run function " + "wacky_wheel:" + spellType.onCastFunction();
         ServerCommandSource commandSource = serverPlayerEntity.getServer().getCommandSource().withSilent().withMaxLevel(2);
         ParseResults<ServerCommandSource> parseResults = commandSource.getDispatcher().parse(parsedCommand, commandSource);
         serverPlayerEntity.getServer().getCommandManager().execute(parseResults, parsedCommand);
@@ -41,9 +42,10 @@ public class SpellManager {
     public static void onSpellTick(SpellType spellType, ServerPlayerEntity serverPlayerEntity) {
         if(spellType.onTickFunction().isPresent()) {
             String executeModifier = spellType.executeOnTickFunctionAtPlayer().isPresent() && spellType.executeOnTickFunctionAtPlayer().get() ? "at" : "as";
+            String targetSelector = spellType.onTickTargetSelector().isPresent() ? spellType.onTickTargetSelector().get() : serverPlayerEntity.getUuidAsString();
 
-            String parsedCommand = "execute " + executeModifier  + " " + serverPlayerEntity.getUuidAsString() + " run function " + "wacky_wheel:" + spellType.onTickFunction().get();
-            ServerCommandSource commandSource = serverPlayerEntity.getServer().getCommandSource();
+            String parsedCommand = "execute " + executeModifier  + " " + targetSelector + " run function " + "wacky_wheel:" + spellType.onTickFunction().get();
+            ServerCommandSource commandSource = serverPlayerEntity.getServer().getCommandSource().withSilent().withMaxLevel(2);
             ParseResults<ServerCommandSource> parseResults = commandSource.getDispatcher().parse(parsedCommand, commandSource);
             serverPlayerEntity.getServer().getCommandManager().execute(parseResults, parsedCommand);
         }
@@ -52,9 +54,10 @@ public class SpellManager {
     public static void onSpellEnd(SpellType spellType, ServerPlayerEntity serverPlayerEntity){
         if(spellType.onEndFunction().isPresent()) {
             String executeModifier = spellType.executeOnEndFunctionAtPlayer().isPresent() && spellType.executeOnEndFunctionAtPlayer().get() ? "at" : "as";
+            String targetSelector = spellType.onEndTargetSelector().isPresent() ? spellType.onEndTargetSelector().get() : serverPlayerEntity.getUuidAsString();
 
-            String parsedCommand = "execute " + executeModifier  + " " + serverPlayerEntity.getUuidAsString() + " run function " + "wacky_wheel:" + spellType.onEndFunction().get();
-            ServerCommandSource commandSource = serverPlayerEntity.getServer().getCommandSource();
+            String parsedCommand = "execute " + executeModifier  + " " + targetSelector + " run function " + "wacky_wheel:" + spellType.onEndFunction().get();
+            ServerCommandSource commandSource = serverPlayerEntity.getServer().getCommandSource().withSilent().withMaxLevel(2);
             ParseResults<ServerCommandSource> parseResults = commandSource.getDispatcher().parse(parsedCommand, commandSource);
             serverPlayerEntity.getServer().getCommandManager().execute(parseResults, parsedCommand);
         }
@@ -63,10 +66,11 @@ public class SpellManager {
     public static void init() {
         ServerTickEvents.END_WORLD_TICK.register(serverWorld -> {
             for(Spell spell : inProgressSpells) {
-                if (serverWorld.getTime() >= spell.getStartTime()) {
+                if (serverWorld.getTime() >= spell.getStartTime() && !spell.hasBeenCasted()) {
                     castSpell(spell.getSpellType(), spell.getPlayer());
+                    spell.setHasBeenCasted(true);
                 }
-                if (serverWorld.getTime() >= spell.getEndTime()) {
+                else if (serverWorld.getTime() >= spell.getEndTime()) {
                     onSpellEnd(spell.getSpellType(), spell.getPlayer());
                 }
                 else {

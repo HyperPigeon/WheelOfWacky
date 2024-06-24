@@ -1,0 +1,7 @@
+{
+  "name": "Fourth of July!",
+  "titleColor": "#FF0000",
+  "itemID": "minecraft:firework_rock",
+  "castingTime": 20,
+  "onCastFunction": "fourth_of_july"
+}

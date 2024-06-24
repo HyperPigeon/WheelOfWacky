@@ -1,0 +1,7 @@
+{
+  "name": "Dye!",
+  "titleColor": "#000000",
+  "itemID": "minecraft:orange_dye",
+  "castingTime": 30,
+  "onCastFunction": "dye"
+}

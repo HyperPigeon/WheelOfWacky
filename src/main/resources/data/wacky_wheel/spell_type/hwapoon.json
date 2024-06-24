@@ -1,0 +1,7 @@
+{
+  "name": "Hwapoon!",
+  "titleColor": "#05696B",
+  "itemID": "minecraft:trident",
+  "castingTime": 20,
+  "onCastFunction": "hwapoon"
+}

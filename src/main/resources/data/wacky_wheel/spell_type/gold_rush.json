@@ -1,0 +1,7 @@
+{
+  "name": "Gold Rush",
+  "titleColor": "#FFD700",
+  "itemID": "minecraft:gold_ingot",
+  "castingTime": 20,
+  "onCastFunction": "gold_rush"
+}

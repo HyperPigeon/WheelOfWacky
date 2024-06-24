@@ -1,0 +1,1 @@
+give @s potion[potion_contents={potion:"minecraft:slow_falling"}] 1

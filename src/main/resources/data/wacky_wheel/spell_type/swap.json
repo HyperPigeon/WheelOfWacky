@@ -1,0 +1,7 @@
+{
+  "name": "Swap!",
+  "itemID": "minecraft:ender_pearl",
+  "castingTime": 20,
+  "onCastFunction": "swap",
+  "executeOnCastFunctionAtPlayer": true
+}

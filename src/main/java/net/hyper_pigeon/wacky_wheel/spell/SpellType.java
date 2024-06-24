@@ -18,9 +18,11 @@ public record SpellType(String name,
                         Optional<TextColor> flavorTextColor,
                         Optional<Boolean> executeOnCastFunctionAtPlayer,
                         Optional<Boolean> executeOnEndFunctionAtPlayer,
-
                         Optional<String> onTickFunction,
-                        Optional<Boolean> executeOnTickFunctionAtPlayer
+                        Optional<Boolean> executeOnTickFunctionAtPlayer,
+                        Optional<String> onCastTargetSelector,
+                        Optional<String> onTickTargetSelector,
+                        Optional<String> onEndTargetSelector
                         ) {
     public static final Codec<SpellType> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("name").forGetter(SpellType::name),
@@ -35,7 +37,10 @@ public record SpellType(String name,
             Codec.BOOL.optionalFieldOf("executeOnCastFunctionAtPlayer").forGetter(SpellType::executeOnCastFunctionAtPlayer),
             Codec.BOOL.optionalFieldOf("executeOnEndFunctionAtPlayer").forGetter(SpellType::executeOnEndFunctionAtPlayer),
             Codec.STRING.optionalFieldOf("onTickFunction").forGetter(SpellType::onTickFunction),
-            Codec.BOOL.optionalFieldOf("executeOnTickFunctionAtPlayer").forGetter(SpellType::executeOnTickFunctionAtPlayer)
+            Codec.BOOL.optionalFieldOf("executeOnTickFunctionAtPlayer").forGetter(SpellType::executeOnTickFunctionAtPlayer),
+            Codec.STRING.optionalFieldOf("onCastTargetSelector").forGetter(SpellType::onCastTargetSelector),
+            Codec.STRING.optionalFieldOf("onTickTargetSelector").forGetter(SpellType::onTickTargetSelector),
+            Codec.STRING.optionalFieldOf("onEndTargetSelector").forGetter(SpellType::onCastTargetSelector)
     ).apply(instance, SpellType::new));
 
 }

@@ -1,0 +1,12 @@
+{
+  "name": "Plague",
+  "titleColor": "#00FF00",
+  "flavorText": "Please remember to social distance.",
+  "itemID": "minecraft:poisonous_potato",
+  "castingTime": 20,
+  "onCastFunction": "plague_start",
+  "duration": 6000,
+  "onTickFunction": "plague_tick",
+  "onTickTargetSelector": "@a[nbt={active_effects:[{id:\"minecraft:poison\"}]}]",
+  "executeOnTickFunctionAtPlayer": true
+}

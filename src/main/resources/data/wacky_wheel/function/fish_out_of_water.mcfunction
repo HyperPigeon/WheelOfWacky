@@ -1,15 +1,15 @@
-summon cod ^ ^1 ^
-summon cod ^ ^1 ^
-summon cod ^ ^1 ^
-summon salmon ^ ^1 ^
-summon salmon ^ ^1 ^
-summon salmon ^ ^1 ^
-summon pufferfish ^ ^1 ^
-summon pufferfish ^ ^1 ^
-summon pufferfish ^ ^1 ^
-summon tropical_fish ^ ^1 ^
-summon tropical_fish ^ ^1 ^
-summon tropical_fish ^ ^1 ^
-summon guardian ^ ^1 ^
-summon guardian ^ ^1 ^
-summon guardian ^ ^1 ^
+summon cod ^ ^1 ^ {Tags:["wacky_wheel"]}
+summon cod ^ ^1 ^ {Tags:["wacky_wheel"]}
+summon cod ^ ^1 ^ {Tags:["wacky_wheel"]}
+summon salmon ^ ^1 ^ {Tags:["wacky_wheel"]}
+summon salmon ^ ^1 ^ {Tags:["wacky_wheel"]}
+summon salmon ^ ^1 ^ {Tags:["wacky_wheel"]}
+summon pufferfish ^ ^1 ^ {Tags:["wacky_wheel"]}
+summon pufferfish ^ ^1 ^ {Tags:["wacky_wheel"]}
+summon pufferfish ^ ^1 ^ {Tags:["wacky_wheel"]}
+summon tropical_fish ^ ^1 ^ {Tags:["wacky_wheel"]}
+summon tropical_fish ^ ^1 ^ {Tags:["wacky_wheel"]}
+summon tropical_fish ^ ^1 ^ {Tags:["wacky_wheel"]}
+summon guardian ^ ^1 ^ {Tags:["wacky_wheel"]}
+summon guardian ^ ^1 ^ {Tags:["wacky_wheel"]}
+summon guardian ^ ^1 ^ {Tags:["wacky_wheel"]}

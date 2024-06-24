@@ -1,0 +1,7 @@
+{
+  "name": "Meat's back on the menu!",
+  "titleColor": "#FF474D",
+  "itemID": "minecraft:cooked_chicken",
+  "castingTime": 30,
+  "onCastFunction": "meats_back_on_the_menu"
+}

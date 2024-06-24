@@ -1,0 +1,14 @@
+{
+  "name": "Blood for the Blood God!",
+  "titleColor": "#FF0000",
+  "flavorText": "Slay your foe in HIS name, lest your suffer HIS wrath.",
+  "itemID": "minecraft:golden_sword",
+  "castingTime": 59,
+  "onCastFunction": "blood_god_start",
+  "duration": 2400,
+  "onTickFunction": "blood_god_tick",
+  "onEndFunction": "blood_god_end",
+  "executeOnCastFunctionAtPlayer": true,
+  "executeOnTickFunctionAtPlayer": true,
+  "executeOnEndFunctionAtPlayer": true
+}

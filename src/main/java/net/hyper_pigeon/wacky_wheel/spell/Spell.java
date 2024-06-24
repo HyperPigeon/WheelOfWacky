@@ -8,11 +8,14 @@ public class Spell {
     private long startTime;
     private long endTime;
 
+    private boolean hasBeenCasted;
+
     public Spell(SpellType spellType, ServerPlayerEntity player){
         this.spellType = spellType;
         this.player = player;
         this.startTime = player.getServerWorld().getTime() + spellType.castingTime();
         this.endTime = spellType.duration().isPresent() ? player.getServerWorld().getTime() + spellType.castingTime() +  spellType.duration().get() : startTime;
+        this.hasBeenCasted = false;
     }
 
     public long getStartTime(){
@@ -29,6 +32,14 @@ public class Spell {
 
     public ServerPlayerEntity getPlayer() {
         return player;
+    }
+
+    public boolean hasBeenCasted() {
+        return hasBeenCasted;
+    }
+
+    public void setHasBeenCasted(boolean hasBeenCasted) {
+        this.hasBeenCasted = hasBeenCasted;
     }
 
 

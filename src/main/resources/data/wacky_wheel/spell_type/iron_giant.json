@@ -1,0 +1,8 @@
+{
+  "name": "Iron Giant",
+  "titleColor": "#D4D7D9",
+  "itemID": "minecraft:iron_ingot",
+  "castingTime": 60,
+  "onCastFunction": "iron_giant",
+  "executeOnCastFunctionAtPlayer": true
+}

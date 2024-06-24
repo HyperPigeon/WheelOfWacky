@@ -1,0 +1,7 @@
+{
+  "name": "Happy Birthday!",
+  "titleColor": "#FFD700",
+  "itemID": "minecraft:cake",
+  "castingTime": 30,
+  "onCastFunction": "happy_birthday"
+}

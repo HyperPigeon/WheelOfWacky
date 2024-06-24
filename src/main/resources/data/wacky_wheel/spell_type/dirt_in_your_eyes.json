@@ -1,0 +1,7 @@
+{
+  "name": "Dirt in your eyes",
+  "titleColor": "#964B00",
+  "itemID": "minecraft:dirt",
+  "castingTime": 30,
+  "onCastFunction": "dirt_in_your_eyes"
+}

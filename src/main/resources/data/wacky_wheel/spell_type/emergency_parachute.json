@@ -1,0 +1,7 @@
+{
+  "name": "Emergency Parachute",
+  "titleColor": "#9dc4bf",
+  "itemID": "minecraft:feather",
+  "castingTime": 10,
+  "onCastFunction": "emergency_parachute"
+}

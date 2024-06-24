@@ -1,0 +1,7 @@
+{
+  "name": "An apple a day...",
+  "titleColor": "#FFD700",
+  "itemID": "minecraft:golden_apple",
+  "castingTime": 30,
+  "onCastFunction": "an_apple_a_day"
+}

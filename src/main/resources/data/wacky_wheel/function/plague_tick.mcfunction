@@ -1,0 +1,1 @@
+effect give @e[type=minecraft:player,distance=..5,nbt=!{active_effects:[{id:"minecraft:poison"}]}] poison 120
