@@ -5,7 +5,7 @@ give @s light_blue_dye
 give @s yellow_dye
 give @s lime_dye
 give @s pink_dye
-give @s grey_dye
+give @s gray_dye
 give @s light_gray_dye
 give @s cyan_dye
 give @s purple_dye

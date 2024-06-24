@@ -1,2 +1,2 @@
 summon iron_golem ~ ~ ~ {Health:100f,Tags:["wacky_wheel","iron_giant"],CustomName:'{"bold":true,"text":"Iron Giant","underlined":false}',HandItems:[{id:"minecraft:poppy",count:1},{}],attributes:[{id:"minecraft:generic.armor",base:10}]}
-attribute @e[tag=iron_giant] generic.scale base set 3
+attribute @e[limit=1,tag=iron_giant] generic.scale base set 3
