@@ -7,5 +7,6 @@
   "onCastFunction": "smited",
   "duration": 3000,
   "onEndFunction": "smited_end",
+  "onEndTargetSelector": "@a",
   "executeOnEndFunctionAtPlayer": true
 }
