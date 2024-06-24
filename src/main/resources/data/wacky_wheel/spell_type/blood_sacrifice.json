@@ -1,0 +1,8 @@
+{
+  "name": "Blood Sacrifice",
+  "titleColor": "#8B0000",
+  "flavorText": "Blood for the blood god!",
+  "itemID": "minecraft:redstone",
+  "castingTime": 100,
+  "onCastFunction": "blood_sacrifice"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "DODGE!",
+  "flavorText": "Why didn't you dodge?",
+  "itemID": "minecraft:arrow",
+  "castingTime": 60,
+  "onCastFunction": "dodge",
+  "executeOnCastFunctionAtPlayer": true
+}

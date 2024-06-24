@@ -1,0 +1,8 @@
+{
+  "name": "Pupil Poppers",
+  "titleColor": "#000000",
+  "flavorText": "Loved by Ladders, hated by the GOAT.",
+  "itemID": "minecraft:spider_eye",
+  "castingTime": 10,
+  "onCastFunction": "pupil_poppers"
+}

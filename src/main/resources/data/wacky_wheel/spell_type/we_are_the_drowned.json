@@ -1,0 +1,9 @@
+{
+  "name": "We are the Drowned",
+  "titleColor": "#0000FF",
+  "flavorText": "Block out, block out ~",
+  "itemID": "minecraft:drowned_spawn_egg",
+  "castingTime": 100,
+  "onCastFunction": "we_are_the_drowned",
+  "executeOnCastFunctionAtPlayer": true
+}

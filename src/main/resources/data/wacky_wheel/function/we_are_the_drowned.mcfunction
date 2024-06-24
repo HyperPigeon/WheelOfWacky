@@ -1,0 +1,3 @@
+summon drowned ~ ~2 ~ {HandItems:[{id:"minecraft:trident",count:1},{}],ArmorItems:[{},{},{},{id:"minecraft:player_head",count:1,components:{"minecraft:profile":{name:"Grian"}}}]}
+summon drowned ~ ~2 ~ {HandItems:[{id:"minecraft:trident",count:1},{}],ArmorItems:[{},{},{},{id:"minecraft:player_head",count:1,components:{"minecraft:profile":{name:"Grian"}}}]}
+summon drowned ~ ~2 ~ {HandItems:[{id:"minecraft:trident",count:1},{}],ArmorItems:[{},{},{},{id:"minecraft:player_head",count:1,components:{"minecraft:profile":{name:"Grian"}}}]}

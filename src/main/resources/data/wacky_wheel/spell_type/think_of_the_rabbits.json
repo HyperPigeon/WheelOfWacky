@@ -1,0 +1,9 @@
+{
+  "name": "Think of the rabbits Ben.",
+  "titleColor": "#af8d64",
+  "flavorText": "Okay Tom!",
+  "itemID": "minecraft:bow",
+  "castingTime": 50,
+  "onCastFunction": "think_of_the_rabbits",
+  "executeOnCastFunctionAtPlayer": true
+}

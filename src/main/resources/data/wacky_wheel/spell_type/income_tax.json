@@ -1,0 +1,8 @@
+{
+  "name": "Income Tax",
+  "titleColor": "#ADD8E6",
+  "flavorText": "I'm crazy enough to take on Batman, but the IRS? Nooo, thank you!",
+  "itemID": "minecraft:diamond",
+  "castingTime": 10,
+  "onCastFunction": "income_tax"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "Smited!",
+  "titleColor": "#FCC01E",
+  "flavorText": "You should probably get rid of that.",
+  "itemID": "minecraft:lightning_rod",
+  "castingTime": 30,
+  "onCastFunction": "smited",
+  "duration": 3000,
+  "onEndFunction": "smited_end",
+  "executeOnEndFunctionAtPlayer": true
+}

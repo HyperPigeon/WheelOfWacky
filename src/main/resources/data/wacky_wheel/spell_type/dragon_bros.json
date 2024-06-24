@@ -1,0 +1,8 @@
+{
+  "name": "Dragon Bros!",
+  "titleColor": "#800080",
+  "flavorText": "dragon bros dra-gon-bros dragon-dragon dragon bros ",
+  "itemID": "minecraft:dragon_head",
+  "castingTime": 10,
+  "onCastFunction": "dragon_bros"
+}
