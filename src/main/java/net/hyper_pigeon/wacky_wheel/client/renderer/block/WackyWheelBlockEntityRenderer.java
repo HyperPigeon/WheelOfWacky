@@ -23,6 +23,8 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.passive.AxolotlEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.VerticallyAttachableBlockItem;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 import net.minecraft.util.Colors;
@@ -62,39 +64,37 @@ public class WackyWheelBlockEntityRenderer implements BlockEntityRenderer<WackyW
     }
     @Override
     public void render(WackyWheelBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-
         VertexConsumer vertexConsumer = getTexture().getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
         int lightAbove = WorldRenderer.getLightmapCoordinates(entity.getWorld(), entity.getPos().up());
-        Text text = Text.literal(entity.getCurrentWedgeName());
-        int textColor = entity.getCurrentWedgeSpell().titleColor().isPresent() ? entity.getCurrentWedgeSpell().titleColor().get().getRgb(): 553648127;
         Direction blockDirection = (Direction)entity.getCachedState().get(WackyWheelBlock.FACING);
         float degreeOffset = (blockDirection.equals(Direction.WEST) || blockDirection.equals(Direction.EAST)) ? -90F : 90F;
+
         matrices.push();
         matrices.translate(0.5,-0.5,0.5);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(degreeOffset  + blockDirection.asRotation()));
 
-        renderText(text, matrices, vertexConsumers, lightAbove, textColor);
+        if(!entity.getWedgeSpells().isEmpty()) {
+            Text text = Text.literal(entity.getCurrentWedgeName());
+            int textColor = entity.getCurrentWedgeSpell().titleColor().isPresent() ? entity.getCurrentWedgeSpell().titleColor().get().getRgb(): 553648127;
+            renderText(text, matrices, vertexConsumers, lightAbove, textColor);
+            this.main_wheel.pitch = (float) ((Math.PI/180F) * clerp(tickDelta,entity.getPreviousRoll(), entity.getRoll()));
 
-//        if(entity.isSpinning()) {
-//            this.main_wheel.pitch = (float) ((Math.PI/180F) * clerp(tickDelta,entity.getPreviousRoll(), entity.getRoll()));
-//        }
-//        else {
-//            this.main_wheel.pitch = (float) ((Math.PI/180F) * entity.getRoll());
-//        }
-        this.main_wheel.pitch = (float) ((Math.PI/180F) * clerp(tickDelta,entity.getPreviousRoll(), entity.getRoll()));
+            for(int i = 0; i < entity.getWedgeSpells().size(); i++) {
+                float pitch = 360 - i*22.5F;
+                Item item = entity.getWedgeSpells().get(i).item();
 
-        for(int i = 0; i < entity.getWedgeSpells().size(); i++) {
-            float pitch = 360 - i*22.5F;
-            matrices.push();
-            matrices.translate(0,1.0,0);
-            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(clerp(tickDelta,entity.getPreviousRoll(), entity.getRoll())));
-            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(pitch));
-            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(90F));
-            matrices.translate(0F, 1.1F, -0.10F);
-            matrices.scale(0.3F, 0.3F, 0.3F);
-            this.itemRenderer.renderItem(entity.getWedgeSpells().get(i).item().getDefaultStack(), ModelTransformationMode.NONE, lightAbove, overlay, matrices, vertexConsumers,entity.getWorld(),0);
-            matrices.pop();
+                matrices.push();
+                matrices.translate(0,1.0,0);
+                matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(clerp(tickDelta,entity.getPreviousRoll(), entity.getRoll())));
+                matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(pitch));
+                matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(90F));
+                matrices.translate(0F, 1.1F, -0.10F);
+                matrices.scale(0.3F, 0.3F, 0.3F);
+                this.itemRenderer.renderItem(item.getDefaultStack(), ModelTransformationMode.NONE, lightAbove, overlay, matrices, vertexConsumers,entity.getWorld(),0);
+                matrices.pop();
+            }
         }
+
         this.wheel.render(matrices,vertexConsumer,lightAbove,overlay);
         matrices.pop();
     }

@@ -47,13 +47,11 @@ public class WackyWheelBlockEntity extends BlockEntity {
     private float previousRoll = 0.0F;
 
     private boolean spellFlag = false;
-    private float particleDistance = 3.5F;
 
     private int previousIndex = 0;
 
     public WackyWheelBlockEntity(BlockPos pos, BlockState state) {
         super(WheelOfWacky.WACKY_WHEEL_BLOCK_ENTITY, pos, state);
-        initWedgeSpells();
     }
 
     @Override
@@ -151,9 +149,9 @@ public class WackyWheelBlockEntity extends BlockEntity {
             int particleNum = random.nextInt(2) + 2;
 
             for(int i = 0; i <= particleNum; i++) {
-                double x = (double)blockPos.getX() + 0.55 - (double)((random.nextFloat() * 2 - 1) *  wackyWheelBlockEntity.particleDistance);
-                double y = (double)blockPos.getY() + 0.55 - (double)((random.nextFloat() * 2 - 1) *  wackyWheelBlockEntity.particleDistance);
-                double z = (double)blockPos.getZ() + 0.55 - (double)((random.nextFloat() * 2 - 1) *  wackyWheelBlockEntity.particleDistance);
+                double x = (double)blockPos.getX() + 0.55 - (double)((random.nextFloat() * 2 - 1) *  3.5F);
+                double y = (double)blockPos.getY() + 0.55 - (double)((random.nextFloat() * 2 - 1) *  3.5F);
+                double z = (double)blockPos.getZ() + 0.55 - (double)((random.nextFloat() * 2 - 1) *  3.5F);
                 double g = 0.4F - (random.nextFloat() + random.nextFloat()) * 0.4F;
 
             Vec3d vec3d = new Vec3d(blockPos.getX() - x ,blockPos.getY() - y ,  blockPos.getZ() - z).normalize();
@@ -176,12 +174,14 @@ public class WackyWheelBlockEntity extends BlockEntity {
                 wackyWheelBlockEntity.previousIndex = index;
             }
         }
-        else {
-            wackyWheelBlockEntity.particleDistance = 7.5F;
-        }
     }
 
     public static void serverTick(World world, BlockPos blockPos, BlockState blockState, WackyWheelBlockEntity wackyWheelBlockEntity) {
+        if(wackyWheelBlockEntity.getWedgeSpells().isEmpty()) {
+            wackyWheelBlockEntity.initWedgeSpells();
+            wackyWheelBlockEntity.markDirty();
+        }
+
         if(wackyWheelBlockEntity.getSpinningPlayer() != null) {
             if(wackyWheelBlockEntity.isSpinning()) {
                 wackyWheelBlockEntity.setPreviousRoll(wackyWheelBlockEntity.getRoll());
