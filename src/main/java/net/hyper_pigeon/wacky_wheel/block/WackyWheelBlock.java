@@ -53,11 +53,11 @@ public class WackyWheelBlock extends HorizontalFacingBlock implements BlockEntit
         if (!world.isClient) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof WackyWheelBlockEntity wackyWheelBlockEntity) {
-                wackyWheelBlockEntity.spin((ServerPlayerEntity) player);
+                return wackyWheelBlockEntity.spin((ServerPlayerEntity) player);
             }
         }
 
-        return ActionResult.SUCCESS;
+        return ActionResult.PASS;
     }
 
     @Override

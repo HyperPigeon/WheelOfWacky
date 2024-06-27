@@ -23,6 +23,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
@@ -170,7 +171,7 @@ public class WackyWheelBlockEntity extends BlockEntity {
             int index = wackyWheelBlockEntity.getWedgeIndexFromRoll(wackyWheelBlockEntity.getRoll());
 
             if(wackyWheelBlockEntity.previousIndex != index) {
-                world.playSoundAtBlockCenter(blockPos, Registries.SOUND_EVENT.get(SoundEvents.BLOCK_NOTE_BLOCK_HAT.registryKey()), SoundCategory.RECORDS, 5F, 1F, false);
+                world.playSoundAtBlockCenter(blockPos, Registries.SOUND_EVENT.get(SoundEvents.BLOCK_NOTE_BLOCK_HAT.registryKey()), SoundCategory.RECORDS, 1F, 1F, true);
                 wackyWheelBlockEntity.previousIndex = index;
             }
         }
@@ -207,14 +208,16 @@ public class WackyWheelBlockEntity extends BlockEntity {
 
     }
 
-    public void spin(ServerPlayerEntity serverPlayerEntity){
+    public ActionResult spin(ServerPlayerEntity serverPlayerEntity){
         if(!isSpinning() && !spellFlag) {
             setSpinningPlayer(serverPlayerEntity);
             float startSpeed = random.nextFloat(10F) + 10F;
             setSpeed(startSpeed);
             spellFlag = true;
             markDirty();
+            return ActionResult.SUCCESS;
         }
+        return ActionResult.PASS;
     }
 
     public ServerPlayerEntity getSpinningPlayer() {
@@ -260,7 +263,7 @@ public class WackyWheelBlockEntity extends BlockEntity {
 
     public void removeAndReplaceSpell(int index, BlockPos blockPos){
         getWedgeSpells().set(index, (SpellType) SpellTypeRegistry.valueStream().toArray()[random.nextInt(SpellTypeRegistry.size())]);
-        world.playSound(null,blockPos,SoundEvents.ENTITY_ITEM_FRAME_REMOVE_ITEM,SoundCategory.BLOCKS,5F,1);
+        world.playSound(null,blockPos,SoundEvents.ENTITY_ITEM_FRAME_REMOVE_ITEM,SoundCategory.BLOCKS,1F,1);
     }
 
 }
