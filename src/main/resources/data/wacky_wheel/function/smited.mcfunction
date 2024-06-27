@@ -1,2 +1,2 @@
 give @s lightning_rod
-tell @s Try giving this to a friend!
+tell @s I should give this to a friend!
