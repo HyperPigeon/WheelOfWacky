@@ -5,7 +5,7 @@
   "itemID": "minecraft:lightning_rod",
   "castingTime": 30,
   "onCastFunction": "smited",
-  "duration": 3000,
+  "duration": 2400,
   "onEndFunction": "smited_end",
   "onEndTargetSelector": "@a",
   "executeOnEndFunctionAtPlayer": true
