@@ -3,5 +3,6 @@
   "titleColor": "#FFFFFF",
   "itemID": "minecraft:splash_potion",
   "castingTime": 10,
-  "onCastFunction": "mlg_slow_falling"
+  "onCastFunction": "mlg_slow_falling",
+  "executeOnCastFunctionAtPlayer": true
 }
