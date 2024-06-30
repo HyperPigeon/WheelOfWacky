@@ -1,1 +1,1 @@
-give @s trident[custom_name='{"bold":true,"color":"dark_aqua","text":"Hwapoon"}',damage=248,repair_cost=100000,enchantments={levels:{"minecraft:power":10,"minecraft:loyalty":1}}] 1
+give @s trident[custom_name='{"bold":true,"color":"dark_aqua","text":"Hwapoon"}',damage=248,repair_cost=100000,enchantments={levels:{"minecraft:impaling":10,"minecraft:loyalty":1}}] 1
