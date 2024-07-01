@@ -1,1 +1,1 @@
-item replace entity @p armor.head with dragon_head[enchantments={levels:{"minecraft:binding_curse":1}}] 1
+give @p dragon_head[enchantments={levels:{"minecraft:binding_curse":1}}] 1
