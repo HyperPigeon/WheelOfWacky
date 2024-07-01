@@ -1,7 +1,7 @@
 {
   "name": "Hwapoon!",
   "titleColor": "#05696B",
-  "itemID": "minecraft:trident",
+  "itemID": "minecraft:prismarine_shard",
   "castingTime": 20,
   "onCastFunction": "hwapoon"
 }
