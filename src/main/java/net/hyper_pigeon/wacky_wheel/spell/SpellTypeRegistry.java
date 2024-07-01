@@ -52,6 +52,10 @@ public class SpellTypeRegistry {
         return LOCATION_TO_SPELL_TYPE.values().stream();
     }
 
+    public static Stream<Identifier> identifierStream() {
+        return SPELL_TYPE_TO_LOCATION.values().stream();
+    }
+
     public static Stream<Map.Entry<Identifier, SpellType>> asStream() {
         return LOCATION_TO_SPELL_TYPE.entrySet().stream();
     }
