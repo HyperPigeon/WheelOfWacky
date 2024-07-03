@@ -23,6 +23,7 @@ import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
@@ -62,7 +63,14 @@ public class WackyWheelBlock extends HorizontalFacingBlock implements BlockEntit
 
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return VoxelShapes.fullCube();
+        Direction dir = state.get(FACING);
+        return switch (dir) {
+            case NORTH -> VoxelShapes.cuboid(0.25f, 0.25f, 0.3125f, 0.75f, 0.75f, 1f);
+            case SOUTH -> VoxelShapes.cuboid(0.25f, 0.25f, 0f, 0.75f, 0.75f, 0.6875f);
+            case EAST -> VoxelShapes.cuboid(0f, 0.25f, 0.25f, 0.6875f, 0.75f, 0.75f);
+            case WEST -> VoxelShapes.cuboid(0.3125f, 0.25f, 0.25f, 1f, 0.75f, 0.75f);
+            default -> VoxelShapes.fullCube();
+        };
     }
 
     public BlockState getPlacementState(ItemPlacementContext ctx) {
