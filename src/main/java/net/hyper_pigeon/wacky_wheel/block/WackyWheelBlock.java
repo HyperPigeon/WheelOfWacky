@@ -62,7 +62,7 @@ public class WackyWheelBlock extends HorizontalFacingBlock implements BlockEntit
 
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return VoxelShapes.fullCube();
+        return VoxelShapes.cuboid(0.25f, 0.25f, 0f, 0.75f, 0.75f, 0.6875f);
     }
 
     public BlockState getPlacementState(ItemPlacementContext ctx) {

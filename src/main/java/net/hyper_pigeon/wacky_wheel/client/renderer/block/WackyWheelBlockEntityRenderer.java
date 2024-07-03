@@ -76,7 +76,9 @@ public class WackyWheelBlockEntityRenderer implements BlockEntityRenderer<WackyW
         if(!entity.getWedgeSpells().isEmpty()) {
             Text text = Text.literal(entity.getCurrentWedgeName());
             int textColor = entity.getCurrentWedgeSpell().titleColor().isPresent() ? entity.getCurrentWedgeSpell().titleColor().get().getRgb(): 553648127;
-            renderText(text, matrices, vertexConsumers, lightAbove, textColor);
+            if (entity.isSpinning()) {
+                renderText(text, matrices, vertexConsumers, lightAbove, textColor);
+            }
             this.main_wheel.pitch = (float) ((Math.PI/180F) * clerp(tickDelta,entity.getPreviousRoll(), entity.getRoll()));
 
             for(int i = 0; i < entity.getWedgeSpells().size(); i++) {
