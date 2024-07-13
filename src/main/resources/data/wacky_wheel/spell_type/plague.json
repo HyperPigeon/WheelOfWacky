@@ -7,6 +7,6 @@
   "onCastFunction": "plague_start",
   "duration": 6000,
   "onTickFunction": "plague_tick",
-  "onTickTargetSelector": "@a[nbt={active_effects:[{id:\"minecraft:poison\"}]}]",
+  "onTickTargetSelector": "@a[predicate=wacky_wheel:plague_predicate]",
   "executeOnTickFunctionAtPlayer": true
 }

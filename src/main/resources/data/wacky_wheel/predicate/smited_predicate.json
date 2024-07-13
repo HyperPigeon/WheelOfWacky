@@ -1,0 +1,12 @@
+{
+  "condition": "minecraft:entity_properties",
+  "entity": "this",
+  "predicate": {
+    "type": "minecraft:player",
+    "slots": {
+      "hotbar.*": {
+        "items": "minecraft:lightning_rod"
+      }
+    }
+  }
+}
