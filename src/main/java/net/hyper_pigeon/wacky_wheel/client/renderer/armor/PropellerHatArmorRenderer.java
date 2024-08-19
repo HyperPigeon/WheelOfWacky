@@ -1,10 +1,7 @@
 package net.hyper_pigeon.wacky_wheel.client.renderer.armor;
 
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
-import net.hyper_pigeon.wacky_wheel.WheelOfWacky;
-import net.hyper_pigeon.wacky_wheel.client.WheelOfWackyClient;
 import net.hyper_pigeon.wacky_wheel.client.model.armor.PropellerHatModel;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.util.math.MatrixStack;

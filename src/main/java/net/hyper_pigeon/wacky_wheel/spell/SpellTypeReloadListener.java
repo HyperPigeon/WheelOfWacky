@@ -5,7 +5,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.mojang.logging.LogUtils;
-import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.hyper_pigeon.wacky_wheel.WheelOfWacky;

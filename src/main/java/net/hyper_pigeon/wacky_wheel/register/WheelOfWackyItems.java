@@ -1,11 +1,12 @@
 package net.hyper_pigeon.wacky_wheel.register;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.hyper_pigeon.wacky_wheel.WheelOfWacky;
-import net.hyper_pigeon.wacky_wheel.block.WackyWheelBlock;
 import net.hyper_pigeon.wacky_wheel.item.PropellerHat;
-import net.minecraft.item.*;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;

@@ -2,7 +2,6 @@ package net.hyper_pigeon.wacky_wheel.spell;
 
 import com.mojang.brigadier.ParseResults;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.hyper_pigeon.wacky_wheel.WheelOfWacky;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 
