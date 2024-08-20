@@ -6,7 +6,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "wacky_wheel:basement",
-        "projection": "terrain_matching",
+        "projection": "rigid",
         "processors": "minecraft:empty"
       }
     }
