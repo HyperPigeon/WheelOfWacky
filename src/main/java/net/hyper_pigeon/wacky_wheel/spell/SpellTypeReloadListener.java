@@ -48,8 +48,12 @@ public class SpellTypeReloadListener extends JsonDataLoader  implements Identifi
                 if (spellType.isEmpty()) return;
                 if (SpellTypeRegistry.containsKey(location))
                     SpellTypeRegistry.update(location, spellType.get());
-                else
-                    SpellTypeRegistry.register(location, spellType.get());
+                else {
+                    WheelOfWacky.CONFIG.enabledSpells.putIfAbsent(location.toString(), true);
+                    if (WheelOfWacky.CONFIG.enabledSpells.getOrDefault(location.toString(), false)) {
+                        SpellTypeRegistry.register(location, spellType.get());
+                    }
+                }
             }
             catch(Exception e) {
                 WheelOfWacky.LOG.error("Could not load spell type at location '{}'. (Skipping). {}", location, e);

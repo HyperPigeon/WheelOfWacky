@@ -2,8 +2,10 @@ package net.hyper_pigeon.wacky_wheel;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import net.fabricmc.loader.api.FabricLoader;
 import net.hyper_pigeon.wacky_wheel.block.WackyWheelBlock;
 import net.hyper_pigeon.wacky_wheel.block.entity.WackyWheelBlockEntity;
+import net.hyper_pigeon.wacky_wheel.config.WackyWheelConfig;
 import net.hyper_pigeon.wacky_wheel.register.WheelOfWackyCommands;
 import net.hyper_pigeon.wacky_wheel.register.WheelOfWackyData;
 import net.hyper_pigeon.wacky_wheel.register.WheelOfWackyItems;
@@ -27,6 +29,8 @@ public class WheelOfWacky implements ModInitializer {
             Identifier.of(MOD_ID, "wacky_wheel_block_entity"),
             FabricBlockEntityTypeBuilder.create(WackyWheelBlockEntity::new, WACKY_WHEEL_BLOCK).build()
     );
+
+    public static final WackyWheelConfig CONFIG = WackyWheelConfig.createToml(FabricLoader.getInstance().getConfigDir(), "", MOD_ID, WackyWheelConfig.class);
 
     @Override
     public void onInitialize() {
