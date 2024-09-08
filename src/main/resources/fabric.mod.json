@@ -3,7 +3,7 @@
   "id": "wacky_wheel",
   "version": "${version}",
   "name": "Wheel Of Wacky",
-  "description": "",
+  "description": "A mod that adds a carnival prize wheel that has the chance to either fabulously reward or horrifically punish players!",
   "authors": ["CyborgPigeon","lumiscosity"],
   "contact": {
     "repo": "https://github.com/HyperPigeon/WheelOfWacky"
