@@ -4,7 +4,7 @@
   "version": "${version}",
   "name": "Wheel Of Wacky",
   "description": "",
-  "authors": [],
+  "authors": ["CyborgPigeon","lumiscosity"],
   "contact": {
     "repo": "https://github.com/HyperPigeon/WheelOfWacky"
   },

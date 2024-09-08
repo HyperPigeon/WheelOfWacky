@@ -1,0 +1,41 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license="MIT"
+
+[[mods]]
+modId="wacky_wheel"
+version="0.2.1"
+displayName="Wheel of Wacky"
+authors="CyborgPigeon, lumiscosity"
+description='''A mod that adds a carnival prize wheel that has the chance to either fabulously reward or horrifically punish players!'''
+
+[properties]
+"connector:placeholder" = true
+
+[[dependencies.wacky_wheel]]
+modId = "connector"
+type = "required"
+versionRange = "*"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.wacky_wheel]]
+modId = "neoforge"
+type = "required"
+versionRange = "*"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.wacky_wheel]]
+modId = "minecraft"
+type = "required"
+versionRange = "[${minecraft_version},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.wacky_wheel]]
+modId = "fabric_api"
+type = "required"
+versionRange = "[${fabric_version},)"
+ordering = "NONE"
+side = "BOTH"
