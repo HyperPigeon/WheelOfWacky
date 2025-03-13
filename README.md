@@ -1,6 +1,18 @@
 # Wheel of Wacky
 
+[![Made for ModFest Carnival](https://raw.githubusercontent.com/ModFest/art/v2/badge/svg/carnival/cozy.svg)](https://modfest.net/carnival)
+
 A mod that adds a carnival prize wheel that - when spun - has the chance to either fabulously reward or horrifically punish the player that spun the wheel in a hilarious fashion! 
+
+![The Wheel of Wacky being spun by a player.](https://cdn.modrinth.com/data/JwRk761J/images/9ef74a2ddd388ebb69be750273d560993e74d1a6.gif)
+
+## Obtaining a Wheel of Wacky
+
+In order to get a Wheel of Wacky for yourself, you'll have to find a "basement" structure in your world. Inside <del>Wheel Boy's dungeon prison</del> the basement you'll find a Wheel of Wacky that you can break and collect using a diamond or better pickaxe.
+
+![Entrance to basement structure](https://cdn.modrinth.com/data/JwRk761J/images/3e181de53a079fe12fa4e8fc1d930ba3a9d5cb16.png)
+
+![Inside of the basement](https://cdn.modrinth.com/data/cached_images/d87b3e5ed63bc0d56c75c804302fa09d8d1389d3.png)
 
 ## Creating spells
 
@@ -76,7 +88,7 @@ Keep in mind that the `onCastFunction` by default will target the player who ini
 
 To test our new command, enter the /wheel free_diamond command into chat and receive your free diamond. 
 
-### Spell JSON Keys
+### Spell JSON Properties
 
 `name`: The name of the spell.
 
@@ -104,4 +116,9 @@ To test our new command, enter the /wheel free_diamond command into chat and rec
 
 `executeOnEndFunctionAtPlayer` (Optional): Set to true to execute onEndFunction AT player instead of AS player. 
 
+## Credits
+[https://github.com/HyperPigeon](https://github.com/HyperPigeon)
 
+[https://github.com/lumiscosity](https://github.com/lumiscosity)
+
+[https://lumiscosity.neocities.org/](https://lumiscosity.neocities.org/)
