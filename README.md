@@ -6,8 +6,6 @@ A mod that adds a carnival prize wheel that - when spun - has the chance to eith
 
 ![The Wheel of Wacky being spun by a player.](https://cdn.modrinth.com/data/JwRk761J/images/9ef74a2ddd388ebb69be750273d560993e74d1a6.gif)
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/-UctkRdo6kQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
 ## Obtaining a Wheel of Wacky
 
 In order to get a Wheel of Wacky for yourself, you'll have to find a "basement" structure in your world. Inside <del>Wheel Boy's dungeon prison</del> the basement you'll find a Wheel of Wacky that you can break and collect using a diamond or better pickaxe.
