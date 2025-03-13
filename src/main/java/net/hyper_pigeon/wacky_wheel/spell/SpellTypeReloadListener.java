@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 
 import java.util.Map;
 
-public class SpellTypeReloadListener extends JsonDataLoader  implements IdentifiableResourceReloadListener {
+public class SpellTypeReloadListener extends JsonDataLoader implements IdentifiableResourceReloadListener {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final Logger LOGGER = LogUtils.getLogger();
 

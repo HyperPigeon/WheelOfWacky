@@ -8,6 +8,7 @@ import net.hyper_pigeon.wacky_wheel.block.entity.WackyWheelBlockEntity;
 import net.hyper_pigeon.wacky_wheel.config.WackyWheelConfig;
 import net.hyper_pigeon.wacky_wheel.register.WheelOfWackyCommands;
 import net.hyper_pigeon.wacky_wheel.register.WheelOfWackyData;
+import net.hyper_pigeon.wacky_wheel.register.WheelOfWackyGamerules;
 import net.hyper_pigeon.wacky_wheel.register.WheelOfWackyItems;
 import net.hyper_pigeon.wacky_wheel.spell.SpellManager;
 import net.minecraft.block.Block;
@@ -38,6 +39,7 @@ public class WheelOfWacky implements ModInitializer {
         WheelOfWackyData.init();
         WheelOfWackyItems.init();
         WheelOfWackyCommands.init();
+        WheelOfWackyGamerules.init();
         SpellManager.init();
     }
 }

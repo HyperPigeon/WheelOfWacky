@@ -1,5 +1,7 @@
 {
   "item.wacky_wheel.propeller_hat": "Propeller Hat",
   "block.wacky_wheel.wacky_wheel": "Wheel of Wacky",
-  "itemGroup.wacky_wheel.wheel_of_wacky": "Wheel of Wacky"
+  "itemGroup.wacky_wheel.wheel_of_wacky": "Wheel of Wacky",
+  "block.wacky_wheel.not_enough_tokens": "You do not have enough tokens to spin.",
+  "gamerule.payToSpinWheelOfWacky": "Pay to spin the Wheel of Wacky"
 }

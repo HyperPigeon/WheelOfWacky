@@ -3,14 +3,18 @@ package net.hyper_pigeon.wacky_wheel.block;
 import com.mojang.serialization.MapCodec;
 import net.hyper_pigeon.wacky_wheel.WheelOfWacky;
 import net.hyper_pigeon.wacky_wheel.block.entity.WackyWheelBlockEntity;
+import net.hyper_pigeon.wacky_wheel.register.WheelOfWackyGamerules;
+import net.hyper_pigeon.wacky_wheel.token.TokenTypeRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -42,7 +46,19 @@ public class WackyWheelBlock extends HorizontalFacingBlock implements BlockEntit
         if (!world.isClient) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof WackyWheelBlockEntity wackyWheelBlockEntity) {
-                return wackyWheelBlockEntity.spin((ServerPlayerEntity) player);
+                if(!player.isCreative() && world.getGameRules().getBoolean(WheelOfWackyGamerules.PAY_TO_SPIN_WHEEL_OF_WACKY)) {
+                    ItemStack mainHandStack = player.getMainHandStack();
+                    if(TokenTypeRegistry.ITEM_TO_TOKEN_TYPE.containsKey(mainHandStack.getItem()) && mainHandStack.getCount() >= TokenTypeRegistry.ITEM_TO_TOKEN_TYPE.get(mainHandStack.getItem()).count()) {
+                        int count = TokenTypeRegistry.ITEM_TO_TOKEN_TYPE.get(mainHandStack.getItem()).count();
+                        mainHandStack.decrement(count);
+                        return wackyWheelBlockEntity.spin((ServerPlayerEntity) player);
+                    }
+                    player.sendMessage(Text.translatable("block.wacky_wheel.not_enough_tokens"), true);
+                    return ActionResult.PASS;
+                }
+                else {
+                    return wackyWheelBlockEntity.spin((ServerPlayerEntity) player);
+                }
             }
         }
 

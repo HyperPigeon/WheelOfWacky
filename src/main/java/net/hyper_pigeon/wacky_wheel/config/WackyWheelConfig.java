@@ -7,4 +7,5 @@ import java.util.Map;
 
 public class WackyWheelConfig extends WrappedConfig {
     public Map<String, Boolean> enabledSpells = ValueMap.builder(true).build();
+    public Map<String, Boolean> enabledTokens = ValueMap.builder(true).build();
 }
