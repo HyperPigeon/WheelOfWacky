@@ -1,1 +1,1 @@
-effect give @a[distance=..5,predicate=!wacky_wheel:plague_predicate] poison 120
+effect give @a[distance=..2,predicate=!wacky_wheel:plague_predicate,limit=1] poison 120

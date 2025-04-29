@@ -1,1 +1,1 @@
-give @p dragon_head[enchantments={levels:{"minecraft:binding_curse":1}}] 1
+give @s dragon_head[enchantments={levels:{"minecraft:binding_curse":1}}] 1
